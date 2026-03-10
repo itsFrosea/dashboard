@@ -3,13 +3,9 @@ function toggleSidebar(){
 const sidebar = document.getElementById("sidebar")
 
 if(sidebar.style.display === "none"){
-
 sidebar.style.display = "block"
-
 }else{
-
 sidebar.style.display = "none"
-
 }
 
 }
@@ -18,9 +14,7 @@ sidebar.style.display = "none"
 function openPage(id){
 
 document.querySelectorAll(".page").forEach(p=>{
-
 p.classList.remove("active")
-
 })
 
 document.getElementById(id).classList.add("active")
@@ -28,14 +22,28 @@ document.getElementById(id).classList.add("active")
 }
 
 
+// open leaderboard page
 openPage("leaderboard")
 
 
+// =====================
+// LOAD LEADERBOARD
+// =====================
 async function loadLeaderboard(){
 
-const channel = new URLSearchParams(window.location.search).get("channel")
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
 
-const res = await fetch(`https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}`)
+if(!channel){
+console.log("No channel in URL")
+return
+}
+
+try{
+
+const res = await fetch(
+`https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}`
+)
 
 const data = await res.json()
 
@@ -43,12 +51,19 @@ const table = document.querySelector("#leaderboardTable tbody")
 
 table.innerHTML = ""
 
-data.forEach(user=>{
+if(!data || data.length === 0){
+
+table.innerHTML = `<tr><td colspan="2">No data yet</td></tr>`
+return
+
+}
+
+data.forEach((user,i)=>{
 
 const row = document.createElement("tr")
 
 row.innerHTML = `
-<td>${user.username}</td>
+<td>${i+1}. ${user.username}</td>
 <td>${user.points}</td>
 `
 
@@ -56,6 +71,14 @@ table.appendChild(row)
 
 })
 
+}catch(err){
+
+console.error("Leaderboard load failed:", err)
+
 }
 
+}
+
+
+// load leaderboard
 loadLeaderboard()
