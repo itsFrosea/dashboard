@@ -1,56 +1,73 @@
-<!DOCTYPE html>
-<html>
+It <!DOCTYPE html>
+<html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<title>Sharan Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sharan Bot Dashboard</title>
 
 <link rel="stylesheet" href="dashboard.css">
 
 </head>
 
+
 <body>
 
-<div class="layout">
+<div class="app">
 
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
+<!-- ========================= -->
+<!-- SIDEBAR -->
+<!-- ========================= -->
 
-<h2>Sharan</h2>
+<div id="sidebar">
 
-<a onclick="openPage('leaderboard')">Leaderboard</a>
-<a onclick="openPage('settings')">Settings</a>
+<h2>Sharan Bot</h2>
+
+<button onclick="openPage('leaderboard')">
+Leaderboard
+</button>
+
+<button onclick="openPage('economy')">
+Economy
+</button>
+
+<button onclick="openPage('commands')">
+Commands
+</button>
+
+<button onclick="openPage('timed')">
+Timed Messages
+</button>
 
 </div>
 
 
-<!-- Main Area -->
-<div class="main">
+<!-- ========================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================= -->
 
-<!-- Top bar -->
-<div class="topbar">
-
-<button onclick="toggleSidebar()">☰</button>
-
-<h1>Dashboard</h1>
-
-</div>
+<div id="content">
 
 
-<!-- Pages -->
+<!-- ========================= -->
+<!-- LEADERBOARD -->
+<!-- ========================= -->
 
 <div id="leaderboard" class="page">
 
-<h2>Top Users</h2>
+<h2>Top Chatters</h2>
 
 <table id="leaderboardTable">
 
 <thead>
+
 <tr>
 <th>User</th>
 <th>Points</th>
 </tr>
+
 </thead>
 
 <tbody>
@@ -62,18 +79,86 @@
 </div>
 
 
-<div id="settings" class="page">
 
-<h2>Settings</h2>
+<!-- ========================= -->
+<!-- ECONOMY SETTINGS -->
+<!-- ========================= -->
 
-<p>Bot configuration will appear here.</p>
+<div id="economy" class="page">
+
+<h2>Economy Settings</h2>
+
+<label>Currency Name</label>
+<input id="currencyName">
+
+<label>Points Per Message</label>
+<input id="pointsPerMessage" type="number">
+
+<label>Daily Reward</label>
+<input id="dailyReward" type="number">
+
+<br><br>
+
+<button onclick="saveEconomy()">
+Save Economy Settings
+</button>
 
 </div>
 
 
+
+<!-- ========================= -->
+<!-- CUSTOM COMMANDS -->
+<!-- ========================= -->
+
+<div id="commands" class="page">
+
+<h2>Custom Commands</h2>
+
+<label>Command</label>
+<input id="commandName" placeholder="!hello">
+
+<label>Response</label>
+<input id="commandResponse" placeholder="Hello chat!">
+
+<br><br>
+
+<button onclick="addCommand()">
+Add Command
+</button>
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- TIMED MESSAGES -->
+<!-- ========================= -->
+
+<div id="timed" class="page">
+
+<h2>Timed Messages</h2>
+
+<label>Message</label>
+<input id="timedMessage" placeholder="Follow the stream!">
+
+<label>Interval (minutes)</label>
+<input id="timedInterval" type="number">
+
+<br><br>
+
+<button onclick="addTimed()">
+Add Timed Message
+</button>
+
+</div>
+
+
+
 </div>
 
 </div>
+
 
 <script src="dashboard.js"></script>
 
