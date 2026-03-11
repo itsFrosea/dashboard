@@ -84,6 +84,13 @@ async function loadCommands(){
 const params = new URLSearchParams(window.location.search)
 const channel = params.get("channel")
 
+if(!channel){
+console.log("No channel")
+return
+}
+
+try{
+
 const res = await fetch(
 `https://sharan-bot-kp71.onrender.com/commands?channel=${channel}`
 )
@@ -93,6 +100,11 @@ const data = await res.json()
 const container = document.getElementById("commandsList")
 
 container.innerHTML = ""
+
+if(!data || data.length === 0){
+container.innerHTML = "<p>No commands yet</p>"
+return
+}
 
 data.forEach(cmd=>{
 
@@ -113,28 +125,18 @@ container.appendChild(row)
 
 })
 
-}
+}catch(err){
 
-async function deleteCommand(command){
-
-const params = new URLSearchParams(window.location.search)
-const channel = params.get("channel")
-
-await fetch(
-"https://sharan-bot-kp71.onrender.com/command/delete",
-{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-
-body: JSON.stringify({
-channel: channel,
-command: command
-})
-})
-
-loadCommands()
+console.error("Commands load failed:", err)
 
 }
 
-// load leaderboard
+}
+
+openPage("leaderboard")
+
+setInterval(loadLeaderboard, 3000)
+setInterval(loadCommands, 3000)
+
 loadLeaderboard()
+loadCommands()
