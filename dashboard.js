@@ -22,10 +22,6 @@ document.getElementById(id).classList.add("active")
 }
 
 
-// open leaderboard page
-openPage("leaderboard")
-
-
 // =====================
 // LOAD LEADERBOARD
 // =====================
@@ -79,6 +75,10 @@ console.error("Leaderboard load failed:", err)
 
 }
 
+
+// =====================
+// LOAD COMMANDS
+// =====================
 async function loadCommands(){
 
 const params = new URLSearchParams(window.location.search)
@@ -132,6 +132,35 @@ console.error("Commands load failed:", err)
 }
 
 }
+
+
+// =====================
+// DELETE COMMAND
+// =====================
+async function deleteCommand(command){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+await fetch(
+"https://sharan-bot-kp71.onrender.com/command/delete",
+{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({
+channel: channel,
+command: command
+})
+})
+
+loadCommands()
+
+}
+
+
+// =====================
+// START PAGE
+// =====================
 
 openPage("leaderboard")
 
