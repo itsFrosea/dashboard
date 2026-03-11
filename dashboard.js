@@ -79,6 +79,62 @@ console.error("Leaderboard load failed:", err)
 
 }
 
+async function loadCommands(){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+const res = await fetch(
+`https://sharan-bot-kp71.onrender.com/commands?channel=${channel}`
+)
+
+const data = await res.json()
+
+const container = document.getElementById("commandsList")
+
+container.innerHTML = ""
+
+data.forEach(cmd=>{
+
+const row = document.createElement("div")
+
+row.className = "commandRow"
+
+row.innerHTML = `
+<div class="cmdName">${cmd.command}</div>
+<div class="cmdResponse">${cmd.response}</div>
+
+<div class="cmdMenu">
+<button onclick="deleteCommand('${cmd.command}')">⋮</button>
+</div>
+`
+
+container.appendChild(row)
+
+})
+
+}
+
+async function deleteCommand(command){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+await fetch(
+"https://sharan-bot-kp71.onrender.com/command/delete",
+{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+
+body: JSON.stringify({
+channel: channel,
+command: command
+})
+})
+
+loadCommands()
+
+}
 
 // load leaderboard
 loadLeaderboard()
