@@ -1,3 +1,16 @@
+function toggleSidebar(){
+
+const sidebar = document.getElementById("sidebar")
+
+if(sidebar.style.display === "none"){
+sidebar.style.display = "block"
+}else{
+sidebar.style.display = "none"
+}
+
+}
+
+
 function openPage(id){
 
 document.querySelectorAll(".page").forEach(p=>{
@@ -36,12 +49,13 @@ const data = await res.json()
 
 const table = document.querySelector("#leaderboardTable tbody")
 
-if(!table) return
-
 table.innerHTML = ""
 
 if(!data || data.length === 0){
+
+table.innerHTML = `<tr><td colspan="2">No data yet</td></tr>`
 return
+
 }
 
 data.forEach((user,i)=>{
@@ -65,9 +79,7 @@ console.error("Leaderboard load failed:", err)
 
 }
 
-
-// run once
+// load leaderboard
 loadLeaderboard()
 
-// refresh every 3 seconds
 setInterval(loadLeaderboard, 3000)
