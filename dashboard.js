@@ -142,6 +142,20 @@ row.className = "commandRow"
 row.innerHTML = `
 <div class="cmdName">${cmd.command}</div>
 <div class="cmdResponse">${cmd.response}</div>
+
+<div class="cmdMenu">
+
+<button class="menuBtn" onclick="toggleMenu(this)">
+⋮
+</button>
+
+<div class="cmdPopup">
+<button onclick="deleteCommand('${cmd.command.replace(/'/g,"")}')">
+🗑 Delete
+</button>
+</div>
+
+</div>
 `
 
 // RIGHT CLICK MENU
@@ -159,6 +173,20 @@ console.error("Commands load failed:", err)
 
 }
 
+function toggleMenu(btn){
+
+const popup = btn.nextElementSibling
+
+document.querySelectorAll(".cmdPopup").forEach(p=>{
+if(p !== popup){
+p.style.display = "none"
+}
+})
+
+popup.style.display =
+popup.style.display === "block" ? "none" : "block"
+
+}
 
 // =====================
 // ADD COMMAND
@@ -202,12 +230,17 @@ setTimeout(loadCommands,1500)
 // DELETE COMMAND
 // =====================
 
-async function deleteCommand(){
-
-if(!selectedCommand) return
+async function deleteCommand(command){
 
 const params = new URLSearchParams(window.location.search)
 const channel = params.get("channel")
+
+// if called from context menu
+if(!command){
+command = selectedCommand
+}
+
+if(!command) return
 
 await fetch(
 "https://sharan-bot-kp71.onrender.com/command/delete",
@@ -216,7 +249,7 @@ method:"POST",
 headers:{ "Content-Type":"application/json" },
 body: JSON.stringify({
 channel: channel,
-command: selectedCommand
+command: command.trim()
 })
 }
 )
@@ -226,7 +259,6 @@ selectedCommand = null
 loadCommands()
 
 }
-
 
 // =====================
 // CONTEXT MENU DELETE

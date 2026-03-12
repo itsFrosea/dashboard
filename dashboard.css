@@ -272,3 +272,71 @@ font-size:14px;
 background:#f3f3f3;
 
 }
+
+.cmdMenu{
+position:relative;
+width:40px;
+display:flex;
+justify-content:flex-end;
+}
+
+.menuBtn{
+background:none !important;
+border:none;
+font-size:20px;
+cursor:pointer;
+color:#666;
+padding:4px;
+border-radius:6px;
+}
+
+.menuBtn:hover{
+background:#f2f2f2 !important;
+}
+
+/* popup box */
+
+.cmdPopup{
+
+display:none;
+
+position:absolute;
+right:0;
+top:28px;
+
+background:white;
+
+border-radius:8px;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+
+padding:6px;
+
+z-index:100;
+
+min-width:110px;
+
+}
+
+.cmdPopup button{
+
+background:#fff;
+border:none;
+
+padding:8px 10px;
+
+width:100%;
+
+cursor:pointer;
+
+border-radius:6px;
+
+text-align:left;
+
+font-size:14px;
+
+color:#d32f2f;   /* red text */
+
+font-weight:500;
+
+}
