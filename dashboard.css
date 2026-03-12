@@ -118,27 +118,43 @@ font-size:14px;
 }
 
 .commandRow{
-
 display:flex;
-justify-content:space-between;
 align-items:center;
-
+justify-content:space-between;
 padding:12px;
-
 border-bottom:1px solid #eee;
-
 }
 
 .cmdName{
 font-weight:600;
+width:140px;
+}
+
+.cmdResponse{
+flex:1;
+color:#555;
+}
+
+.cmdMenu{
+width:40px;
+text-align:right;
 }
 
 .cmdMenu button{
-background:none;
+background:none !important;
 border:none;
-font-size:18px;
+font-size:20px;
 cursor:pointer;
+color:#666;
+padding:0;
+margin:0;
 }
+
+.cmdMenu button:hover{
+color:black;
+background:none !important;
+}
+
 
 /* ========================= */
 /* BUTTONS */
