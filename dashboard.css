@@ -230,3 +230,45 @@ width:100%;
 }
 
 }
+
+#contextMenu{
+
+display:none;
+position:absolute;
+
+background:white;
+
+border-radius:8px;
+
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+
+padding:6px;
+
+z-index:9999;
+
+}
+
+#contextMenu button{
+
+background:none;
+border:none;
+
+padding:8px 12px;
+
+cursor:pointer;
+
+border-radius:6px;
+
+width:160px;
+
+text-align:left;
+
+font-size:14px;
+
+}
+
+#contextMenu button:hover{
+
+background:#f3f3f3;
+
+}

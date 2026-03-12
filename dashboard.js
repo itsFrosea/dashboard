@@ -1,3 +1,5 @@
+let selectedCommand = null
+
 // =====================
 // PAGE SWITCHING
 // =====================
@@ -14,34 +16,32 @@ document.getElementById(id).classList.add("active")
 
 
 // =====================
-// COMMAND MENU
+// CONTEXT MENU
 // =====================
 
-function toggleMenu(btn){
+function showContextMenu(e, command){
 
-const menu = btn.nextElementSibling
+e.preventDefault()
 
-document.querySelectorAll(".cmdDropdown").forEach(m=>{
-if(m !== menu){
-m.style.display = "none"
+selectedCommand = command.trim()
+
+const menu = document.getElementById("contextMenu")
+
+menu.style.display = "block"
+
+menu.style.left = e.pageX + "px"
+menu.style.top = e.pageY + "px"
+
 }
-})
-
-menu.style.display =
-menu.style.display === "block" ? "none" : "block"
-
-}
 
 
-// close dropdown when clicking outside
-document.addEventListener("click", e => {
+// close context menu when clicking anywhere
+document.addEventListener("click", ()=>{
 
-if(!e.target.closest(".cmdMenu")){
+const menu = document.getElementById("contextMenu")
 
-document.querySelectorAll(".cmdDropdown").forEach(m=>{
-m.style.display = "none"
-})
-
+if(menu){
+menu.style.display = "none"
 }
 
 })
@@ -142,15 +142,10 @@ row.className = "commandRow"
 row.innerHTML = `
 <div class="cmdName">${cmd.command}</div>
 <div class="cmdResponse">${cmd.response}</div>
-
-<div class="cmdMenu">
-<button onclick="toggleMenu(this)">⋮</button>
-
-<div class="cmdDropdown">
-<button onclick="deleteCommand('${cmd.command.trim()}')">Delete</button>
-</div>
-</div>
 `
+
+// RIGHT CLICK MENU
+row.oncontextmenu = (e)=> showContextMenu(e, cmd.command)
 
 container.appendChild(row)
 
@@ -207,7 +202,9 @@ setTimeout(loadCommands,1500)
 // DELETE COMMAND
 // =====================
 
-async function deleteCommand(command){
+async function deleteCommand(){
+
+if(!selectedCommand) return
 
 const params = new URLSearchParams(window.location.search)
 const channel = params.get("channel")
@@ -219,13 +216,26 @@ method:"POST",
 headers:{ "Content-Type":"application/json" },
 body: JSON.stringify({
 channel: channel,
-command: command
+command: selectedCommand
 })
 }
 )
 
-setTimeout(loadCommands,1000)
+selectedCommand = null
 
+loadCommands()
+
+}
+
+
+// =====================
+// CONTEXT MENU DELETE
+// =====================
+
+const deleteBtn = document.getElementById("deleteCommandBtn")
+
+if(deleteBtn){
+deleteBtn.onclick = deleteCommand
 }
 
 
