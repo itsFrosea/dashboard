@@ -1,15 +1,6 @@
-function toggleSidebar(){
-
-const sidebar = document.getElementById("sidebar")
-
-if(sidebar.style.display === "none"){
-sidebar.style.display = "block"
-}else{
-sidebar.style.display = "none"
-}
-
-}
-
+// =====================
+// PAGE SWITCHING
+// =====================
 
 function openPage(id){
 
@@ -23,8 +14,43 @@ document.getElementById(id).classList.add("active")
 
 
 // =====================
+// COMMAND MENU
+// =====================
+
+function toggleMenu(btn){
+
+const menu = btn.nextElementSibling
+
+document.querySelectorAll(".cmdDropdown").forEach(m=>{
+if(m !== menu){
+m.style.display = "none"
+}
+})
+
+menu.style.display =
+menu.style.display === "block" ? "none" : "block"
+
+}
+
+
+// close dropdown when clicking outside
+document.addEventListener("click", e => {
+
+if(!e.target.closest(".cmdMenu")){
+
+document.querySelectorAll(".cmdDropdown").forEach(m=>{
+m.style.display = "none"
+})
+
+}
+
+})
+
+
+// =====================
 // LOAD LEADERBOARD
 // =====================
+
 async function loadLeaderboard(){
 
 const params = new URLSearchParams(window.location.search)
@@ -79,6 +105,7 @@ console.error("Leaderboard load failed:", err)
 // =====================
 // LOAD COMMANDS
 // =====================
+
 async function loadCommands(){
 
 const params = new URLSearchParams(window.location.search)
@@ -117,7 +144,11 @@ row.innerHTML = `
 <div class="cmdResponse">${cmd.response}</div>
 
 <div class="cmdMenu">
-<button onclick="deleteCommand('${cmd.command}')">⋮</button>
+<button onclick="toggleMenu(this)">⋮</button>
+
+<div class="cmdDropdown">
+<button onclick="deleteCommand('${cmd.command.trim()}')">Delete</button>
+</div>
 </div>
 `
 
@@ -135,8 +166,47 @@ console.error("Commands load failed:", err)
 
 
 // =====================
+// ADD COMMAND
+// =====================
+
+async function addCommand(){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+const command = document.getElementById("commandName").value
+const response = document.getElementById("commandResponse").value
+
+if(!command || !response){
+alert("Command and response required")
+return
+}
+
+await fetch(
+"https://sharan-bot-kp71.onrender.com/command/add",
+{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({
+channel: channel,
+command: command.trim(),
+response: response
+})
+}
+)
+
+document.getElementById("commandName").value=""
+document.getElementById("commandResponse").value=""
+
+setTimeout(loadCommands,1500)
+
+}
+
+
+// =====================
 // DELETE COMMAND
 // =====================
+
 async function deleteCommand(command){
 
 const params = new URLSearchParams(window.location.search)
@@ -151,9 +221,10 @@ body: JSON.stringify({
 channel: channel,
 command: command
 })
-})
+}
+)
 
-loadCommands()
+setTimeout(loadCommands,1000)
 
 }
 
@@ -164,8 +235,8 @@ loadCommands()
 
 openPage("leaderboard")
 
-setInterval(loadLeaderboard, 3000)
-setInterval(loadCommands, 3000)
+setInterval(loadLeaderboard,8000)
+setInterval(loadCommands,8000)
 
 loadLeaderboard()
 loadCommands()
