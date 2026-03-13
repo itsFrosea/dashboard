@@ -270,6 +270,61 @@ if(deleteBtn){
 deleteBtn.onclick = deleteCommand
 }
 
+async function saveMedals(){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+const enabled =
+document.getElementById("medalsEnabled").checked
+
+await fetch(
+"https://sharan-bot-kp71.onrender.com/medals/set",
+{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+
+body: JSON.stringify({
+channel: channel,
+enabled: enabled
+})
+}
+)
+
+alert("Medal settings saved")
+
+}
+
+async function loadSettings(){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+if(!channel) return
+
+try{
+
+const res = await fetch(
+`https://sharan-bot-kp71.onrender.com/settings?channel=${channel}`
+)
+
+const data = await res.json()
+
+if(data.medals_enabled !== undefined){
+
+document.getElementById("medalsEnabled").checked =
+Boolean(data.medals_enabled)
+
+}
+
+}catch(err){
+
+console.error("Settings load failed:", err)
+
+}
+
+}
+
 
 // =====================
 // START PAGE
@@ -282,3 +337,4 @@ setInterval(loadCommands,8000)
 
 loadLeaderboard()
 loadCommands()
+loadSettings()
