@@ -12,8 +12,12 @@ p.classList.remove("active")
 
 document.getElementById(id).classList.add("active")
 
+// ✅ load settings when opening economy tab
+if(id === "economy"){
+loadSettings()
 }
 
+}
 
 // =====================
 // CONTEXT MENU
@@ -291,7 +295,7 @@ enabled: enabled
 }
 )
 
-alert("Medal settings saved")
+console.log("✅ Medal settings saved")
 
 }
 
@@ -313,7 +317,7 @@ const data = await res.json()
 if(data.medals_enabled !== undefined){
 
 document.getElementById("medalsEnabled").checked =
-Boolean(data.medals_enabled)
+data.medals_enabled === 1 || data.medals_enabled === true
 
 }
 
