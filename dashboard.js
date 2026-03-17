@@ -299,6 +299,44 @@ console.log("✅ Medal settings saved")
 
 }
 
+async function saveEconomy(){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+const currency = document.getElementById("currencyName").value
+const ppm = document.getElementById("pointsPerMessage").value
+const daily = document.getElementById("dailyReward").value
+
+if(!channel){
+alert("No channel found")
+return
+}
+
+try{
+
+await fetch(
+"https://sharan-bot-kp71.onrender.com/economy/save",
+{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({
+channel: channel,
+currency_name: currency,
+points_per_message: Number(ppm),
+daily_reward: Number(daily)
+})
+}
+)
+
+alert("✅ Economy saved")
+
+}catch(err){
+console.error("Economy save failed:", err)
+}
+
+}
+
 async function loadSettings(){
 
 const params = new URLSearchParams(window.location.search)
@@ -328,6 +366,7 @@ console.error("Settings load failed:", err)
 }
 
 }
+
 
 
 // =====================
