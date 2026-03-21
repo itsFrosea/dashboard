@@ -12,9 +12,12 @@ p.classList.remove("active")
 
 document.getElementById(id).classList.add("active")
 
-// ✅ load settings when opening economy tab
 if(id === "economy"){
 loadSettings()
+}
+
+if(id === "timed"){
+loadTimed()
 }
 
 }
@@ -367,6 +370,86 @@ console.error("Settings load failed:", err)
 
 }
 
+async function addTimed(){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+const message = document.getElementById("timedMessage").value
+const interval = document.getElementById("timedInterval").value
+
+if(!message || !interval){
+alert("Message and interval required")
+return
+}
+
+await fetch(
+"https://sharan-bot-kp71.onrender.com/timed/add",
+{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({
+channel: channel,
+message: message,
+interval: Number(interval)
+})
+}
+)
+
+alert("✅ Timed message added")
+
+document.getElementById("timedMessage").value = ""
+document.getElementById("timedInterval").value = ""
+
+loadTimed()
+}
+
+async function loadTimed(){
+
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+if(!channel) return
+
+try{
+
+const res = await fetch(
+`https://sharan-bot-kp71.onrender.com/timed/list?channel=${channel}`
+)
+
+const data = await res.json()
+
+const container = document.getElementById("timedList")
+if(!container) return
+
+container.innerHTML = ""
+
+if(!data || data.length === 0){
+container.innerHTML = "<p>No timed messages yet</p>"
+return
+}
+
+data.forEach(msg => {
+
+const row = document.createElement("div")
+
+row.className = "commandRow"
+
+row.innerHTML = `
+<div class="cmdResponse">${msg.message}</div>
+<div>${msg.interval_minutes} min</div>
+`
+
+container.appendChild(row)
+
+})
+
+}catch(err){
+console.error("Timed load failed:", err)
+}
+
+}
+
 
 
 // =====================
@@ -377,6 +460,7 @@ openPage("leaderboard")
 
 setInterval(loadLeaderboard,8000)
 setInterval(loadCommands,8000)
+setInterval(loadTimed,8000)
 
 loadLeaderboard()
 loadCommands()
