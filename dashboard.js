@@ -438,6 +438,12 @@ row.className = "commandRow"
 row.innerHTML = `
 <div class="cmdResponse">${msg.message}</div>
 <div>${msg.interval_minutes} min</div>
+
+<div class="cmdMenu">
+<button onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">
+🗑
+</button>
+</div>
 `
 
 container.appendChild(row)
@@ -449,7 +455,27 @@ console.error("Timed load failed:", err)
 }
 
 }
+async function deleteTimed(message){
 
+const params = new URLSearchParams(window.location.search)
+const channel = params.get("channel")
+
+if(!message) return
+
+await fetch(
+"https://sharan-bot-kp71.onrender.com/timed/delete",
+{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({
+channel: channel,
+message: message
+})
+}
+)
+
+loadTimed()
+}
 
 
 // =====================
