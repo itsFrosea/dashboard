@@ -440,7 +440,7 @@ row.innerHTML = `
 <div>${msg.interval_minutes} min</div>
 
 <div class="cmdMenu">
-<button onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">
+<button onclick="deleteTimed(${msg.id})">
 🗑
 </button>
 </div>
@@ -455,7 +455,7 @@ console.error("Timed load failed:", err)
 }
 
 }
-async function deleteTimed(message){
+async function deleteTimed(id){
 
 const params = new URLSearchParams(window.location.search)
 const channel = params.get("channel")
@@ -469,7 +469,7 @@ method:"POST",
 headers:{ "Content-Type":"application/json" },
 body: JSON.stringify({
 channel: channel,
-message: message
+id: id
 })
 }
 )
