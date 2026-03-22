@@ -167,7 +167,7 @@ row.innerHTML = `
 
 // RIGHT CLICK MENU
 row.oncontextmenu = (e)=> showContextMenu(e, cmd.command)
-
+row.oncontextmenu = (e)=> showContextMenu(e, msg.message)
 container.appendChild(row)
 
 })
