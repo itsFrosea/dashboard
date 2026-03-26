@@ -1,3 +1,4 @@
+console.log("JS LOADED");
 let selectedCommand = null;
 
 
