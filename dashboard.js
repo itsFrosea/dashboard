@@ -1,5 +1,56 @@
 let selectedCommand = null
 
+
+(function initAuth(){
+
+    const params = new URLSearchParams(window.location.search)
+
+    const token = params.get("token")
+    const channel = params.get("channel")
+
+    if(token){
+        localStorage.setItem("twitch_token", token)
+        localStorage.setItem("twitch_user", channel)
+
+        // clean URL (remove token for safety)
+        window.history.replaceState({}, document.title, `?channel=${channel}`)
+    }
+
+})()
+function protectPage(){
+
+    const params = new URLSearchParams(window.location.search)
+    const channel = params.get("channel")
+
+    const user = localStorage.getItem("twitch_user")
+
+    if(!user){
+        alert("Login required")
+        window.location.href = "/"
+        return
+    }
+
+    if(channel !== user){
+        alert("You can only access your own dashboard")
+        window.location.href = `/dashboard.html?channel=${user}`
+    }
+}
+
+function getAuthHeaders(){
+    const token = localStorage.getItem("twitch_token")
+
+    if(!token){
+        alert("Session expired. Please login again.")
+        window.location.href = "/"
+        return {}
+    }
+
+    return {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+    }
+}
+
 // =====================
 // PAGE SWITCHING
 // =====================
@@ -41,18 +92,12 @@ menu.style.top = e.pageY + "px"
 
 }
 
-
-// close context menu when clicking anywhere
 document.addEventListener("click", ()=>{
-
 const menu = document.getElementById("contextMenu")
-
 if(menu){
 menu.style.display = "none"
 }
-
 })
-
 
 // =====================
 // LOAD LEADERBOARD
@@ -71,43 +116,33 @@ return
 try{
 
 const res = await fetch(
-`https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}`
+`https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}`,
+{ headers: getAuthHeaders() }
 )
 
 const data = await res.json()
 
 const table = document.querySelector("#leaderboardTable tbody")
-
 table.innerHTML = ""
 
 if(!data || data.length === 0){
-
 table.innerHTML = `<tr><td colspan="2">No data yet</td></tr>`
 return
-
 }
 
 data.forEach((user,i)=>{
-
 const row = document.createElement("tr")
-
 row.innerHTML = `
 <td>${i+1}. ${user.username}</td>
 <td>${user.points}</td>
 `
-
 table.appendChild(row)
-
 })
 
 }catch(err){
-
 console.error("Leaderboard load failed:", err)
-
 }
-
 }
-
 
 // =====================
 // LOAD COMMANDS
@@ -126,13 +161,13 @@ return
 try{
 
 const res = await fetch(
-`https://sharan-bot-kp71.onrender.com/commands?channel=${channel}`
+`https://sharan-bot-kp71.onrender.com/commands?channel=${channel}`,
+{ headers: getAuthHeaders() }
 )
 
 const data = await res.json()
 
 const container = document.getElementById("commandsList")
-
 container.innerHTML = ""
 
 if(!data || data.length === 0){
@@ -143,7 +178,6 @@ return
 data.forEach(cmd=>{
 
 const row = document.createElement("div")
-
 row.className = "commandRow"
 
 row.innerHTML = `
@@ -151,37 +185,25 @@ row.innerHTML = `
 <div class="cmdResponse">${cmd.response}</div>
 
 <div class="cmdMenu">
-
-<button class="menuBtn" onclick="toggleMenu(this)">
-⋮
-</button>
-
+<button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
 <div class="cmdPopup">
-<button onclick="deleteCommand('${cmd.command.replace(/'/g,"")}')">
-🗑 Delete
-</button>
+<button onclick="deleteCommand('${cmd.command.replace(/'/g,"")}')">🗑 Delete</button>
 </div>
-
 </div>
 `
 
-// RIGHT CLICK MENU
 row.oncontextmenu = (e)=> showContextMenu(e, cmd.command)
-row.oncontextmenu = (e)=> showContextMenu(e, msg.message)
+
 container.appendChild(row)
 
 })
 
 }catch(err){
-
 console.error("Commands load failed:", err)
-
 }
-
 }
 
 function toggleMenu(btn){
-
 const popup = btn.nextElementSibling
 
 document.querySelectorAll(".cmdPopup").forEach(p=>{
@@ -192,7 +214,6 @@ p.style.display = "none"
 
 popup.style.display =
 popup.style.display === "block" ? "none" : "block"
-
 }
 
 // =====================
@@ -216,7 +237,7 @@ await fetch(
 "https://sharan-bot-kp71.onrender.com/command/add",
 {
 method:"POST",
-headers:{ "Content-Type":"application/json" },
+headers: getAuthHeaders(),
 body: JSON.stringify({
 channel: channel,
 command: command.trim(),
@@ -229,9 +250,7 @@ document.getElementById("commandName").value=""
 document.getElementById("commandResponse").value=""
 
 setTimeout(loadCommands,1500)
-
 }
-
 
 // =====================
 // DELETE COMMAND
@@ -242,7 +261,6 @@ async function deleteCommand(command){
 const params = new URLSearchParams(window.location.search)
 const channel = params.get("channel")
 
-// if called from context menu
 if(!command){
 command = selectedCommand
 }
@@ -253,7 +271,7 @@ await fetch(
 "https://sharan-bot-kp71.onrender.com/command/delete",
 {
 method:"POST",
-headers:{ "Content-Type":"application/json" },
+headers: getAuthHeaders(),
 body: JSON.stringify({
 channel: channel,
 command: command.trim()
@@ -262,44 +280,36 @@ command: command.trim()
 )
 
 selectedCommand = null
-
 loadCommands()
-
 }
 
-// =====================
-// CONTEXT MENU DELETE
-// =====================
-
 const deleteBtn = document.getElementById("deleteCommandBtn")
-
 if(deleteBtn){
 deleteBtn.onclick = deleteCommand
 }
+
+// =====================
+// SETTINGS
+// =====================
 
 async function saveMedals(){
 
 const params = new URLSearchParams(window.location.search)
 const channel = params.get("channel")
 
-const enabled =
-document.getElementById("medalsEnabled").checked
+const enabled = document.getElementById("medalsEnabled").checked
 
 await fetch(
 "https://sharan-bot-kp71.onrender.com/medals/set",
 {
 method:"POST",
-headers:{ "Content-Type":"application/json" },
-
+headers: getAuthHeaders(),
 body: JSON.stringify({
 channel: channel,
 enabled: enabled
 })
 }
 )
-
-console.log("✅ Medal settings saved")
-
 }
 
 async function saveEconomy(){
@@ -322,7 +332,7 @@ await fetch(
 "https://sharan-bot-kp71.onrender.com/economy/save",
 {
 method:"POST",
-headers:{ "Content-Type":"application/json" },
+headers: getAuthHeaders(),
 body: JSON.stringify({
 channel: channel,
 currency_name: currency,
@@ -337,7 +347,6 @@ alert("✅ Economy saved")
 }catch(err){
 console.error("Economy save failed:", err)
 }
-
 }
 
 async function loadSettings(){
@@ -350,25 +359,25 @@ if(!channel) return
 try{
 
 const res = await fetch(
-`https://sharan-bot-kp71.onrender.com/settings?channel=${channel}`
+`https://sharan-bot-kp71.onrender.com/settings?channel=${channel}`,
+{ headers: getAuthHeaders() }
 )
 
 const data = await res.json()
 
 if(data.medals_enabled !== undefined){
-
 document.getElementById("medalsEnabled").checked =
 data.medals_enabled === 1 || data.medals_enabled === true
-
 }
 
 }catch(err){
-
 console.error("Settings load failed:", err)
-
+}
 }
 
-}
+// =====================
+// TIMED
+// =====================
 
 async function addTimed(){
 
@@ -387,7 +396,7 @@ await fetch(
 "https://sharan-bot-kp71.onrender.com/timed/add",
 {
 method:"POST",
-headers:{ "Content-Type":"application/json" },
+headers: getAuthHeaders(),
 body: JSON.stringify({
 channel: channel,
 message: message,
@@ -414,7 +423,8 @@ if(!channel) return
 try{
 
 const res = await fetch(
-`https://sharan-bot-kp71.onrender.com/timed/list?channel=${channel}`
+`https://sharan-bot-kp71.onrender.com/timed/list?channel=${channel}`,
+{ headers: getAuthHeaders() }
 )
 
 const data = await res.json()
@@ -432,7 +442,6 @@ return
 data.forEach(msg => {
 
 const row = document.createElement("div")
-
 row.className = "commandRow"
 
 row.innerHTML = `
@@ -440,17 +449,10 @@ row.innerHTML = `
 <div>${msg.interval_minutes} min</div>
 
 <div class="cmdMenu">
-
-<button class="menuBtn" onclick="toggleMenu(this)">
-⋮
-</button>
-
+<button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
 <div class="cmdPopup">
-<button onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">
-🗑 Delete
-</button>
+<button onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">🗑 Delete</button>
 </div>
-
 </div>
 `
 
@@ -461,8 +463,8 @@ container.appendChild(row)
 }catch(err){
 console.error("Timed load failed:", err)
 }
-
 }
+
 async function deleteTimed(message){
 
 const params = new URLSearchParams(window.location.search)
@@ -474,7 +476,7 @@ await fetch(
 "https://sharan-bot-kp71.onrender.com/timed/delete",
 {
 method:"POST",
-headers:{ "Content-Type":"application/json" },
+headers: getAuthHeaders(),
 body: JSON.stringify({
 channel: channel,
 message: message
@@ -485,11 +487,11 @@ message: message
 loadTimed()
 }
 
-
 // =====================
-// START PAGE
+// START
 // =====================
 
+protectPage()
 openPage("leaderboard")
 
 setInterval(loadLeaderboard,8000)
