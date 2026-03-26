@@ -116,7 +116,11 @@ try{
 
 const res = await fetch(
 `https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}`,
-{ headers: getAuthHeaders() }
+{
+    method: "GET",
+    headers: getAuthHeaders(),
+    mode: "cors"
+}
 )
 
 const data = await res.json()
@@ -161,7 +165,11 @@ try{
 
 const res = await fetch(
 `https://sharan-bot-kp71.onrender.com/commands?channel=${channel}`,
-{ headers: getAuthHeaders() }
+{
+    method: "GET",
+    headers: getAuthHeaders(),
+    mode: "cors"
+}
 )
 
 const data = await res.json()
@@ -359,7 +367,11 @@ try{
 
 const res = await fetch(
 `https://sharan-bot-kp71.onrender.com/settings?channel=${channel}`,
-{ headers: getAuthHeaders() }
+{
+    method: "GET",
+    headers: getAuthHeaders(),
+    mode: "cors"
+}
 )
 
 const data = await res.json()
@@ -423,9 +435,12 @@ try{
 
 const res = await fetch(
 `https://sharan-bot-kp71.onrender.com/timed/list?channel=${channel}`,
-{ headers: getAuthHeaders() }
+{
+    method: "GET",
+    headers: getAuthHeaders(),
+    mode: "cors"
+}
 )
-
 const data = await res.json()
 
 const container = document.getElementById("timedList")
