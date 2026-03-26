@@ -1,4 +1,4 @@
-let selectedCommand = null
+let selectedCommand = null;
 
 
 (function initAuth(){
