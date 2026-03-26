@@ -9,11 +9,13 @@ let selectedCommand = null;
     const token = params.get("token")
     const channel = params.get("channel")
 
-    if(token){
+    if(token && channel){
+        console.log("Saving token:", token)
+
         localStorage.setItem("twitch_token", token)
         localStorage.setItem("twitch_user", channel)
 
-        // clean URL (remove token for safety)
+        // only clean AFTER confirm
         window.history.replaceState({}, document.title, `?channel=${channel}`)
     }
 
