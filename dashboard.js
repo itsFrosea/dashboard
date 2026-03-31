@@ -49,7 +49,8 @@ function getAuthHeaders(){
     }
 
     return {
-        "Authorization": "Bearer " + token
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"   // ✅ ADD HERE
     }
 }
 
@@ -414,7 +415,7 @@ headers: getAuthHeaders(),
 body: JSON.stringify({
 channel: channel,
 message: message,
-interval: Number(interval)
+interval_minutes: Number(interval)
 })
 }
 )
@@ -463,7 +464,7 @@ row.className = "commandRow"
 
 row.innerHTML = `
 <div class="cmdResponse">${msg.message}</div>
-<div>${msg.interval_minutes} min</div>
+<div>${msg.interval_minutes} messages</div>
 
 <div class="cmdMenu">
 <button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
