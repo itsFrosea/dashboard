@@ -254,9 +254,11 @@ await fetch(
 method:"POST",
 headers: getAuthHeaders(),
 body: JSON.stringify({
-channel: channel,
-command: command.trim(),
-response: response
+    channel: channel,
+    command: command.trim(),
+    response: response,
+    give_points: document.getElementById("givePoints").checked ? 1 : 0,
+    points_amount: Number(document.getElementById("pointsAmount").value || 0)
 })
 }
 )
@@ -289,10 +291,7 @@ method:"POST",
 headers: getAuthHeaders(),
 body: JSON.stringify({
     channel: channel,
-    command: command.trim(),
-    response: response,
-    give_points: document.getElementById("givePoints").checked ? 1 : 0,
-    points_amount: Number(document.getElementById("pointsAmount").value || 0)
+    command: command.trim()
 })
 }
 )
