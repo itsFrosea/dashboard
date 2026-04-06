@@ -195,6 +195,10 @@ row.innerHTML = `
 <div class="cmdName">${cmd.command}</div>
 <div class="cmdResponse">${cmd.response}</div>
 
+<div>
+    ${cmd.give_points ? `💰 +${cmd.points_amount}` : ""}
+</div>
+
 <div class="cmdMenu">
 <button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
 <div class="cmdPopup">
@@ -284,8 +288,11 @@ await fetch(
 method:"POST",
 headers: getAuthHeaders(),
 body: JSON.stringify({
-channel: channel,
-command: command.trim()
+    channel: channel,
+    command: command.trim(),
+    response: response,
+    give_points: document.getElementById("givePoints").checked ? 1 : 0,
+    points_amount: Number(document.getElementById("pointsAmount").value || 0)
 })
 }
 )
