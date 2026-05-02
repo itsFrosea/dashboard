@@ -1,58 +1,57 @@
 console.log("JS LOADED");
 let selectedCommand = null;
 
+
 (function initAuth(){
 
-const params = new URLSearchParams(window.location.search)  
+    const params = new URLSearchParams(window.location.search)
 
-const token = params.get("token")  
-const channel = params.get("channel")  
+    const token = params.get("token")
+    const channel = params.get("channel")
 
-if(token && channel){  
-    console.log("Saving token:", token)  
+    if(token && channel){
+        console.log("Saving token:", token)
 
-    localStorage.setItem("twitch_token", token)  
-    localStorage.setItem("twitch_user", channel)  
+        localStorage.setItem("twitch_token", token)
+        localStorage.setItem("twitch_user", channel)
 
-    // only clean AFTER confirm  
-    window.history.replaceState({}, document.title, `?channel=${channel}`)  
-}
+        // only clean AFTER confirm
+        window.history.replaceState({}, document.title, `?channel=${channel}`)
+    }
 
 })()
 function protectPage(){
 
-const params = new URLSearchParams(window.location.search)  
-const channel = params.get("channel")  
+    const params = new URLSearchParams(window.location.search)
+    const channel = params.get("channel")
 
-const user = localStorage.getItem("twitch_user")  
+    const user = localStorage.getItem("twitch_user")
 
-if(!user){  
-    alert("Login required")  
-    window.location.href = "/"  
-    return  
-}  
+    if(!user){
+        alert("Login required")
+        window.location.href = "/"
+        return
+    }
 
-if(channel !== user){  
-    alert("You can only access your own dashboard")  
-    window.location.href = `/dashboard.html?channel=${user}`  
-}
-
+    if(channel !== user){
+        alert("You can only access your own dashboard")
+        window.location.href = `/dashboard.html?channel=${user}`
+    }
 }
 
 function getAuthHeaders(){
-const token = localStorage.getItem("twitch_token")
+    const token = localStorage.getItem("twitch_token")
 
-if(!token){  
-    alert("Session expired. Please login again.")  
-    window.location.href = "/"  
-    return {}  
-}  
+    if(!token){
+        alert("Session expired. Please login again.")
+        window.location.href = "/"
+        return {}
+    }
 
-return {  
-    "Authorization": "Bearer " + token,  
-    "Content-Type": "application/json"   // ✅ ADD HERE  
-}
-
+    return {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"   // ✅ ADD HERE
+    }
 }
 
 // =====================
@@ -120,11 +119,11 @@ return
 try{
 
 const res = await fetch(
-"https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}",
+`https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}`,
 {
-method: "GET",
-headers: getAuthHeaders(),
-mode: "cors"
+    method: "GET",
+    headers: getAuthHeaders(),
+    mode: "cors"
 }
 )
 
@@ -134,19 +133,20 @@ const table = document.querySelector("#leaderboardTable tbody")
 table.innerHTML = ""
 
 if(!data || data.length === 0){
-table.innerHTML = <tr><td colspan="2">No data yet</td></tr>
+table.innerHTML = `<tr><td colspan="2">No data yet</td></tr>`
 return
 }
 
 data.forEach((user,i)=>{
 const row = document.createElement("tr")
 row.innerHTML = `
+<td>${i+1}. ${user.username}</td>
+<td>${user.points}</td>
+`
+table.appendChild(row)
+})
 
-<td>${i+1}. ${user.username}</td>  
-<td>${user.points}</td>  
-`  
-table.appendChild(row)  
-})  }catch(err){
+}catch(err){
 console.error("Leaderboard load failed:", err)
 }
 }
@@ -168,11 +168,11 @@ return
 try{
 
 const res = await fetch(
-"https://sharan-bot-kp71.onrender.com/commands?channel=${channel}",
+`https://sharan-bot-kp71.onrender.com/commands?channel=${channel}`,
 {
-method: "GET",
-headers: getAuthHeaders(),
-mode: "cors"
+    method: "GET",
+    headers: getAuthHeaders(),
+    mode: "cors"
 }
 )
 
@@ -192,17 +192,21 @@ const row = document.createElement("div")
 row.className = "commandRow"
 
 row.innerHTML = `
+<div class="cmdName">${cmd.command}</div>
+<div class="cmdResponse">${cmd.response}</div>
 
-<div class="cmdName">${cmd.command}</div>  
-<div class="cmdResponse">${cmd.response}</div>  <div>  
-    ${cmd.give_points ? `💰 +${cmd.points_amount}` : ""}  
-</div>  <div class="cmdMenu">  
-<button class="menuBtn" onclick="toggleMenu(this)">⋮</button>  
-<div class="cmdPopup">  
-<button onclick="deleteCommand('${cmd.command.replace(/'/g,"")}')">🗑 Delete</button>  
-</div>  
-</div>  
-`  
+<div>
+    ${cmd.give_points ? `💰 +${cmd.points_amount}` : ""}
+</div>
+
+<div class="cmdMenu">
+<button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
+<div class="cmdPopup">
+<button onclick="deleteCommand('${cmd.command.replace(/'/g,"")}')">🗑 Delete</button>
+</div>
+</div>
+`
+
 row.oncontextmenu = (e)=> showContextMenu(e, cmd.command)
 
 container.appendChild(row)
@@ -250,11 +254,11 @@ await fetch(
 method:"POST",
 headers: getAuthHeaders(),
 body: JSON.stringify({
-channel: channel,
-command: command.trim(),
-response: response,
-give_points: document.getElementById("givePoints").checked ? 1 : 0,
-points_amount: Number(document.getElementById("pointsAmount").value || 0)
+    channel: channel,
+    command: command.trim(),
+    response: response,
+    give_points: document.getElementById("givePoints").checked ? 1 : 0,
+    points_amount: Number(document.getElementById("pointsAmount").value || 0)
 })
 }
 )
@@ -286,8 +290,8 @@ await fetch(
 method:"POST",
 headers: getAuthHeaders(),
 body: JSON.stringify({
-channel: channel,
-command: command.trim()
+    channel: channel,
+    command: command.trim()
 })
 }
 )
@@ -372,11 +376,11 @@ if(!channel) return
 try{
 
 const res = await fetch(
-"https://sharan-bot-kp71.onrender.com/settings?channel=${channel}",
+`https://sharan-bot-kp71.onrender.com/settings?channel=${channel}`,
 {
-method: "GET",
-headers: getAuthHeaders(),
-mode: "cors"
+    method: "GET",
+    headers: getAuthHeaders(),
+    mode: "cors"
 }
 )
 
@@ -440,11 +444,11 @@ if(!channel) return
 try{
 
 const res = await fetch(
-"https://sharan-bot-kp71.onrender.com/timed/list?channel=${channel}",
+`https://sharan-bot-kp71.onrender.com/timed/list?channel=${channel}`,
 {
-method: "GET",
-headers: getAuthHeaders(),
-mode: "cors"
+    method: "GET",
+    headers: getAuthHeaders(),
+    mode: "cors"
 }
 )
 const data = await res.json()
@@ -465,15 +469,17 @@ const row = document.createElement("div")
 row.className = "commandRow"
 
 row.innerHTML = `
+<div class="cmdResponse">${msg.message}</div>
+<div>${msg.interval_minutes} messages</div>
 
-<div class="cmdResponse">${msg.message}</div>  
-<div>${msg.interval_minutes} messages</div>  <div class="cmdMenu">  
-<button class="menuBtn" onclick="toggleMenu(this)">⋮</button>  
-<div class="cmdPopup">  
-<button onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">🗑 Delete</button>  
-</div>  
-</div>  
-`  
+<div class="cmdMenu">
+<button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
+<div class="cmdPopup">
+<button onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">🗑 Delete</button>
+</div>
+</div>
+`
+
 container.appendChild(row)
 
 })
