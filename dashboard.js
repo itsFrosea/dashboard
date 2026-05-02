@@ -268,6 +268,11 @@ body: JSON.stringify({
 }
 )
 
+editingCommand = null
+
+const btn = document.getElementById("commandSubmitBtn")
+if(btn) btn.innerText = "Add Command"
+
 document.getElementById("commandName").value=""
 document.getElementById("commandResponse").value=""
 
@@ -301,7 +306,8 @@ body: JSON.stringify({
 }
 )
 editingCommand = null
-document.getElementById("commandSubmitBtn").innerText = "Add Command"
+const btn = document.getElementById("commandSubmitBtn")
+if(btn) btn.innerText = "Add Command"
 
 selectedCommand = null
 loadCommands()
@@ -435,8 +441,8 @@ interval_minutes: Number(interval)
 })
 })
 editingTimed = null
-document.getElementById("timedSubmitBtn").innerText = "Add Timed Message"
-
+const btn = document.getElementById("timedSubmitBtn")
+if(btn) btn.innerText = "Add Timed Message"
 alert("✅ Timed message added")
 
 document.getElementById("timedMessage").value = ""
@@ -530,7 +536,8 @@ function startEditCommand(command, response){
     document.getElementById("commandName").value = command
     document.getElementById("commandResponse").value = response
 
-    document.getElementById("commandSubmitBtn").innerText = "Update Command"
+    const btn = document.getElementById("commandSubmitBtn")
+    if(btn) btn.innerText = "Update Command"
 }
 
 function startEditTimed(message){
@@ -539,7 +546,8 @@ function startEditTimed(message){
 
     document.getElementById("timedMessage").value = message
 
-    document.getElementById("timedSubmitBtn").innerText = "Update Timed Message"
+    const btn = document.getElementById("timedSubmitBtn")
+    if(btn) btn.innerText = "Update Timed Message"
 }
 // =====================
 // START
