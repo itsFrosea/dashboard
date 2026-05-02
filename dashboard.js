@@ -1,6 +1,7 @@
 console.log("JS LOADED");
 let selectedCommand = null;
-
+let editingCommand = null
+let editingTimed = null
 
 (function initAuth(){
 
@@ -202,6 +203,7 @@ row.innerHTML = `
 <div class="cmdMenu">
 <button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
 <div class="cmdPopup">
+<button onclick="startEditCommand('${cmd.command.replace(/'/g,"")}', '${cmd.response.replace(/'/g,"")}')">✏️ Edit</button>
 <button onclick="deleteCommand('${cmd.command.replace(/'/g,"")}')">🗑 Delete</button>
 </div>
 </div>
@@ -248,15 +250,18 @@ alert("Command and response required")
 return
 }
 
-await fetch(
-"https://sharan-bot-kp71.onrender.com/command/add",
-{
+const url = editingCommand
+? "https://sharan-bot-kp71.onrender.com/command/update"
+: "https://sharan-bot-kp71.onrender.com/command/add"
+
+await fetch(url, {
 method:"POST",
 headers: getAuthHeaders(),
 body: JSON.stringify({
     channel: channel,
     command: command.trim(),
     response: response,
+    old_command: editingCommand,
     give_points: document.getElementById("givePoints").checked ? 1 : 0,
     points_amount: Number(document.getElementById("pointsAmount").value || 0)
 })
@@ -295,6 +300,8 @@ body: JSON.stringify({
 })
 }
 )
+editingCommand = null
+document.getElementById("commandSubmitBtn").innerText = "Add Command"
 
 selectedCommand = null
 loadCommands()
@@ -413,18 +420,22 @@ alert("Message and interval required")
 return
 }
 
-await fetch(
-"https://sharan-bot-kp71.onrender.com/timed/add",
-{
+const url = editingTimed
+? "https://sharan-bot-kp71.onrender.com/timed/update"
+: "https://sharan-bot-kp71.onrender.com/timed/add"
+
+await fetch(url, {
 method:"POST",
 headers: getAuthHeaders(),
 body: JSON.stringify({
 channel: channel,
 message: message,
+old_message: editingTimed,
 interval_minutes: Number(interval)
 })
-}
-)
+})
+editingTimed = null
+document.getElementById("timedSubmitBtn").innerText = "Add Timed Message"
 
 alert("✅ Timed message added")
 
@@ -475,6 +486,7 @@ row.innerHTML = `
 <div class="cmdMenu">
 <button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
 <div class="cmdPopup">
+<button onclick="startEditTimed('${msg.message.replace(/'/g,"")}')">✏️ Edit</button>
 <button onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">🗑 Delete</button>
 </div>
 </div>
@@ -511,6 +523,24 @@ message: message
 loadTimed()
 }
 
+function startEditCommand(command, response){
+
+    editingCommand = command
+
+    document.getElementById("commandName").value = command
+    document.getElementById("commandResponse").value = response
+
+    document.getElementById("commandSubmitBtn").innerText = "Update Command"
+}
+
+function startEditTimed(message){
+
+    editingTimed = message
+
+    document.getElementById("timedMessage").value = message
+
+    document.getElementById("timedSubmitBtn").innerText = "Update Timed Message"
+}
 // =====================
 // START
 // =====================
