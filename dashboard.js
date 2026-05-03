@@ -558,14 +558,17 @@ function updatePreview() {
     if (preview) preview.innerText = text;
 }
 
-// update live while typing
-const respInput = document.getElementById("commandResponse");
-if (respInput) {
-    respInput.addEventListener("input", updatePreview);
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-// initial render
-updatePreview();
+    const respInput = document.getElementById("commandResponse");
+
+    if (respInput) {
+        respInput.addEventListener("input", updatePreview);
+    }
+
+    updatePreview();
+
+});
 
 // =====================
 // START

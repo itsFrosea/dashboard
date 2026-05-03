@@ -451,3 +451,26 @@ transform:translateX(24px);
     border-radius:6px;
     font-weight:500;
 }
+
+.cmdLayout{
+    display:flex;
+    gap:30px;
+    align-items:flex-start;
+}
+
+.cmdLeft{
+    flex:1;
+}
+
+.cmdRight{
+    width:260px;
+}
+
+#cmdPreview{
+    margin-top:6px;
+    padding:8px 10px;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:6px;
+    font-weight:500;
+}
