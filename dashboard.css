@@ -432,3 +432,22 @@ background-color:#43a047; /* green */
 transform:translateX(24px);
 
 }
+
+.cmdHelp{
+    background:#f5f7ff;
+    border:1px solid #dbe2ff;
+    padding:12px;
+    border-radius:8px;
+    margin:10px 0 15px 0;
+    font-size:13px;
+    color:#444;
+}
+
+#cmdPreview{
+    margin-top:6px;
+    padding:8px 10px;
+    background:#ffffff;
+    border:1px solid #eee;
+    border-radius:6px;
+    font-weight:500;
+}

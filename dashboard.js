@@ -543,6 +543,30 @@ function startEditTimed(message){
     document.getElementById("timedSubmitBtn").innerText = "Update Timed Message";
 }
 
+function updatePreview() {
+    const user = localStorage.getItem("twitch_user") || "you";
+    const input = document.getElementById("commandResponse");
+
+    if (!input) return;
+
+    let text = input.value || "{user} is now lurking!";
+
+    text = text.replace("{user}", user);
+    text = text.replace("{target}", "@someone");
+
+    const preview = document.getElementById("cmdPreview");
+    if (preview) preview.innerText = text;
+}
+
+// update live while typing
+const respInput = document.getElementById("commandResponse");
+if (respInput) {
+    respInput.addEventListener("input", updatePreview);
+}
+
+// initial render
+updatePreview();
+
 // =====================
 // START
 // =====================

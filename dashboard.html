@@ -135,10 +135,21 @@ Save Medal Settings
 <h2>Custom Commands</h2>
 
 <label>Command</label>
-<input id="commandName" placeholder="!hello">
+<input id="commandName" placeholder="!lurk">
 
 <label>Response</label>
-<input id="commandResponse" placeholder="Hello chat!">
+<input id="commandResponse" placeholder="{user} is now lurking!">
+
+<div class="cmdHelp">
+  <b>Preview:</b>
+  <div id="cmdPreview">{user} is now lurking!</div>
+
+  <br>
+  <b>Available variables:</b><br>
+  <span><code>{user}</code> → you</span><br>
+  <span><code>{target}</code> → mentioned user</span>
+</div>
+
 
 <label>
     <input type="checkbox" id="givePoints">
