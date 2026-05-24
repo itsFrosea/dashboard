@@ -75,6 +75,13 @@ color:#222;
     flex:none;
 }
 
+#toggleSidebar svg{
+    width:22px;
+    height:22px;
+    stroke:white !important;
+    color:white !important;
+}
+
 #toggleSidebar:hover{
     background:rgba(255,255,255,0.08);
 }
