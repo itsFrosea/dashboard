@@ -279,6 +279,8 @@ table{
     width:100%;
     max-width:650px;
 
+    margin-left: auto;
+
     background:white;
     border-radius:18px;
     overflow:hidden;
