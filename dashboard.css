@@ -159,10 +159,10 @@ color:#222;
 /* MAIN CONTENT */
 #content{
     flex:1;
+    width:100%;
     padding:40px;
     overflow-y:auto;
     background:#ffffff;
-
     transition:all 0.35s ease;
 }
 
