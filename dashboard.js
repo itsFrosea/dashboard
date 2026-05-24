@@ -560,6 +560,17 @@ function updatePreview() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    lucide.createIcons();
+
+    const sidebar = document.getElementById("sidebar");
+    const toggle = document.getElementById("toggleSidebar");
+
+    if (toggle && sidebar) {
+        toggle.addEventListener("click", () => {
+            sidebar.classList.toggle("collapsed");
+        });
+    }
+
     const respInput = document.getElementById("commandResponse");
 
     if (respInput) {
@@ -567,20 +578,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     updatePreview();
-
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    lucide.createIcons();
-
-    const sidebar = document.getElementById("sidebar");
-    const toggle = document.getElementById("toggleSidebar");
-
-    toggle.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-    });
-
 });
 
 // =====================

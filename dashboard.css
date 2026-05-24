@@ -247,7 +247,7 @@ background:none !important;
 /* BUTTONS */
 /* ========================= */
 
-button{
+button:not(#sidebar button):not(.menuBtn){
 background:#4f6df5;
 color:white;
 border:none;
@@ -259,7 +259,7 @@ font-size:14px;
 transition:background 0.2s;
 }
 
-button:hover{
+button:not(#sidebar button):not(.menuBtn):hover{
 background:#3e57d1;
 }
 
