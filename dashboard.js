@@ -570,6 +570,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const user = localStorage.getItem("twitch_user");
+    const topUser = document.getElementById("topUsername");
+
+    if(user && topUser){
+        topUser.innerText = user;
+    }
+});
+
 // =====================
 // START
 // =====================
