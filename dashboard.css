@@ -118,7 +118,7 @@ color:#222;
 }
 
 /* hover */
-#sidebar button:hover{
+#sidebar button:not(#toggleSidebar):hover{
     background:#34344a;
 }
 
