@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<script src="https://unpkg.com/lucide@latest"></script>
 <title>Sharan Bot Dashboard</title>
 
 <link rel="stylesheet" href="dashboard.css">
@@ -21,25 +21,35 @@
 <!-- SIDEBAR -->
 <!-- ========================= -->
 
-<div id="sidebar">
+<div id="sidebar" class="collapsed">
 
-<h2>Sharan Bot</h2>
+    <div class="sidebarTop">
+        <button id="toggleSidebar">
+            <i data-lucide="menu"></i>
+        </button>
 
-<button onclick="openPage('leaderboard')">
-Leaderboard
-</button>
+        <h2 class="sidebarTitle">Sharan Bot</h2>
+    </div>
 
-<button onclick="openPage('economy')">
-Economy
-</button>
+    <button onclick="openPage('leaderboard')">
+        <i data-lucide="trophy"></i>
+        <span>Leaderboard</span>
+    </button>
 
-<button onclick="openPage('commands')">
-Commands
-</button>
+    <button onclick="openPage('economy')">
+        <i data-lucide="coins"></i>
+        <span>Economy</span>
+    </button>
 
-<button onclick="openPage('timed')">
-Timed Messages
-</button>
+    <button onclick="openPage('commands')">
+        <i data-lucide="zap"></i>
+        <span>Commands</span>
+    </button>
+
+    <button onclick="openPage('timed')">
+        <i data-lucide="clock-3"></i>
+        <span>Timed Messages</span>
+    </button>
 
 </div>
 

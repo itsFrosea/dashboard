@@ -14,51 +14,138 @@ color:#222;
 }
 
 
-/* ========================= */
-/* APP LAYOUT */
-/* ========================= */
-
+/* APP */
 .app{
-display:flex;
-height:100vh;
-width:100%;
+    display:flex;
+    height:100vh;
+    width:100%;
+    overflow:hidden;
 }
-
-
-/* ========================= */
+/* ================ */
 /* SIDEBAR */
-/* ========================= */
+/* =============== */
+
 
 #sidebar{
-width:230px;
-background:#1e1e2f;
-color:white;
-padding:25px 20px;
-display:flex;
-flex-direction:column;
+    width:240px;
+    background:#1e1e2f;
+    color:white;
+    padding:20px 12px;
+    display:flex;
+    flex-direction:column;
+    flex-shrink:0;
+
+    transition:
+        width 0.35s ease,
+        padding 0.35s ease;
 }
 
-#sidebar h2{
-margin:0 0 25px 0;
-font-size:20px;
-text-align:center;
+/* collapsed */
+#sidebar.collapsed{
+    width:78px;
+    padding:20px 10px;
 }
 
+/* top */
+.sidebarTop{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:25px;
+}
+
+.sidebarTitle{
+    margin:0;
+    font-size:18px;
+    white-space:nowrap;
+    opacity:1;
+    transition:opacity 0.25s ease;
+}
+
+/* hide title */
+#sidebar.collapsed .sidebarTitle{
+    opacity:0;
+    width:0;
+    overflow:hidden;
+}
+
+/* toggle */
+#toggleSidebar{
+    width:44px;
+    height:44px;
+    border:none;
+    border-radius:12px;
+    background:#2a2a40;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    margin:0;
+}
+
+#toggleSidebar:hover{
+    background:#383856;
+}
+
+/* nav buttons */
 #sidebar button{
-background:none;
-border:none;
-color:white;
-text-align:left;
-padding:12px 14px;
-margin-bottom:6px;
-font-size:14px;
-cursor:pointer;
-border-radius:6px;
-transition:background 0.2s;
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    width:100%;
+    background:none;
+    border:none;
+    color:white;
+    padding:14px 12px;
+    margin-bottom:6px;
+    border-radius:12px;
+    cursor:pointer;
+
+    transition:all 0.25s ease;
 }
 
+/* hover */
 #sidebar button:hover{
-background:#34344a;
+    background:#34344a;
+}
+
+/* icons */
+#sidebar button i{
+    min-width:22px;
+    width:22px;
+    height:22px;
+}
+
+/* labels */
+#sidebar button span{
+    white-space:nowrap;
+    opacity:1;
+    transition:opacity 0.2s ease;
+}
+
+/* hide labels */
+#sidebar.collapsed button span{
+    opacity:0;
+    width:0;
+    overflow:hidden;
+}
+
+/* center icons when collapsed */
+#sidebar.collapsed button{
+    justify-content:center;
+    padding:14px 0;
+}
+
+/* MAIN CONTENT */
+#content{
+    flex:1;
+    padding:40px;
+    overflow-y:auto;
+    background:#ffffff;
+
+    transition:all 0.35s ease;
 }
 
 
