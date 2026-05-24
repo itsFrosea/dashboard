@@ -68,13 +68,16 @@ color:#222;
     align-items:center;
     justify-content:center;
 
-    background:#2a2a40;
+    background:transparent;
     border:none;
-    border-radius:12px;
+    border-radius:8px;
 
     flex:none;
 }
 
+#toggleSidebar:hover{
+    background:rgba(255,255,255,0.08);
+}
 .sidebarTitle{
     margin:0;
     font-size:18px;
@@ -95,9 +98,6 @@ color:#222;
     overflow:hidden;
 }
 
-#toggleSidebar:hover{
-    background:#383856;
-}
 
 /* nav buttons */
 #sidebar button:not(#toggleSidebar){
