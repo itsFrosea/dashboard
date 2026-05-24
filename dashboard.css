@@ -280,7 +280,6 @@ table{
     width:650px;
     max-width:100%;
 
-    margin-left:auto;
 
     background:white;
     border-radius:18px;
@@ -289,7 +288,11 @@ table{
     box-shadow:0 10px 30px rgba(0,0,0,0.08);
     border:1px solid #ececf3;
 }
-
+.leaderboardTableWrap{
+    display:flex;
+    justify-content:flex-end;
+    width:100%;
+}
 thead{
     background:linear-gradient(135deg, #9146ff, #6d28d9);
 }
