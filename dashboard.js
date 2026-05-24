@@ -109,47 +109,81 @@ menu.style.display = "none"
 
 async function loadLeaderboard(){
 
-const params = new URLSearchParams(window.location.search)
-const channel = params.get("channel")
+    const params = new URLSearchParams(window.location.search)
+    const channel = params.get("channel")
 
-if(!channel){
-console.log("No channel in URL")
-return
-}
+    if(!channel) return
 
-try{
+    try{
 
-const res = await fetch(
-`https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}`,
-{
-    method: "GET",
-    headers: getAuthHeaders(),
-    mode: "cors"
-}
-)
+        const res = await fetch(
+            `https://sharan-bot-kp71.onrender.com/leaderboard?channel=${channel}`,
+            {
+                method:"GET",
+                headers:getAuthHeaders(),
+                mode:"cors"
+            }
+        )
 
-const data = await res.json()
+        const data = await res.json()
 
-const table = document.querySelector("#leaderboardTable tbody")
-table.innerHTML = ""
+        const podium = document.getElementById("leaderboardPodium")
+        const list = document.getElementById("leaderboardList")
 
-if(!data || data.length === 0){
-table.innerHTML = `<tr><td colspan="2">No data yet</td></tr>`
-return
-}
+        podium.innerHTML = ""
+        list.innerHTML = ""
 
-data.forEach((user,i)=>{
-const row = document.createElement("tr")
-row.innerHTML = `
-<td>${i+1}. ${user.username}</td>
-<td>${user.points}</td>
-`
-table.appendChild(row)
-})
+        if(!data || data.length === 0){
+            list.innerHTML = `
+                <div class="emptyState">
+                    No leaderboard data yet
+                </div>
+            `
+            return
+        }
 
-}catch(err){
-console.error("Leaderboard load failed:", err)
-}
+        const top3 = data.slice(0,3)
+        const rest = data.slice(3)
+
+        top3.forEach((user,index)=>{
+
+            const medals = ["🥇","🥈","🥉"]
+
+            const card = document.createElement("div")
+            card.className = `podiumCard place${index+1}`
+
+            const initial = user.username.charAt(0).toUpperCase()
+
+            card.innerHTML = `
+                <div class="podiumMedal">${medals[index]}</div>
+                <div class="avatarCircle">${initial}</div>
+                <div class="podiumName">${user.username}</div>
+                <div class="podiumPoints">${user.points} pts</div>
+            `
+
+            podium.appendChild(card)
+        })
+
+        rest.forEach((user,index)=>{
+
+            const row = document.createElement("div")
+            row.className = "leaderboardRow"
+
+            const initial = user.username.charAt(0).toUpperCase()
+
+            row.innerHTML = `
+                <div class="rankNumber">#${index+4}</div>
+                <div class="avatarCircle small">${initial}</div>
+                <div class="leaderName">${user.username}</div>
+                <div class="leaderPoints">${user.points} pts</div>
+            `
+
+            list.appendChild(row)
+        })
+
+    }catch(err){
+        console.error("Leaderboard load failed:", err)
+    }
 }
 
 // =====================
