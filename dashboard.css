@@ -71,7 +71,8 @@ color:#222;
 
 /* toggle */
 #toggleSidebar{
-    width:44px;
+    width:44px !important;
+    min-width:44px;
     height:44px;
     border:none;
     border-radius:12px;
@@ -82,6 +83,8 @@ color:#222;
     justify-content:center;
     cursor:pointer;
     margin:0;
+    padding:0;
+    flex-shrink:0;
 }
 
 #toggleSidebar:hover{
@@ -89,7 +92,7 @@ color:#222;
 }
 
 /* nav buttons */
-#sidebar button{
+#sidebar button:not(#toggleSidebar){
     display:flex;
     align-items:center;
     gap:14px;
