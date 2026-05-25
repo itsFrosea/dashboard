@@ -166,7 +166,7 @@ body{
     width:100%;
     padding:40px;
     overflow-y:auto;
-    background:#ffffff;
+    background:transparent;
     transition:all 0.35s ease;
 }
 
