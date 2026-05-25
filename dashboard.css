@@ -7,10 +7,14 @@ box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#f4f6f9;
-color:#222;
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#fff;
+
+    background:
+        radial-gradient(circle at top right, rgba(255, 120, 180, 0.25), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(140, 80, 255, 0.25), transparent 35%),
+        linear-gradient(135deg, #120b1a 0%, #1e1328 45%, #2b1634 100%);
 }
 
 
