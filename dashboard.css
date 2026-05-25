@@ -627,13 +627,16 @@ transform:translateX(24px);
 .statCard{
     min-width:180px;
 
-    background:linear-gradient(145deg, #ffffff, #f9f9ff);
-    border:1px solid #ececf5;
-    border-radius:20px;
+    background:rgba(255, 255, 255, 0.10);
+    border:1px solid rgba(255, 255, 255, 0.18);
 
+    border-radius:20px;
     padding:20px 22px;
 
-    box-shadow:0 8px 24px rgba(0,0,0,0.05);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:0 8px 32px rgba(0,0,0,0.18);
 
     transition:all 0.25s ease;
 }
