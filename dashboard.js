@@ -61,20 +61,31 @@ function getAuthHeaders(){
 
 function openPage(id){
 
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.remove("active")
-})
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    });
 
-document.getElementById(id).classList.add("active")
+    document.getElementById(id).classList.add("active");
 
-if(id === "economy"){
-loadSettings()
-}
+    document.querySelectorAll("#sidebar button:not(#toggleSidebar)").forEach(btn=>{
+        btn.classList.remove("active");
+    });
 
-if(id === "timed"){
-loadTimed()
-}
+    const activeBtn = document.querySelector(
+        `#sidebar button[onclick="openPage('${id}')"]`
+    );
 
+    if(activeBtn){
+        activeBtn.classList.add("active");
+    }
+
+    if(id === "economy"){
+        loadSettings();
+    }
+
+    if(id === "timed"){
+        loadTimed();
+    }
 }
 
 // =====================

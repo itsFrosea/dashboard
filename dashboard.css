@@ -189,7 +189,7 @@ body{
 }
 
 /* active button */
-#sidebar button:first-of-type:not(#toggleSidebar){
+#sidebar button.active{
     background:rgba(180, 80, 255, 0.16);
 
     border:1px solid rgba(220,140,255,0.22);
@@ -663,21 +663,38 @@ transform:translateX(24px);
 /* ========================= */
 
 .dashboardHero{
-    margin-bottom:24px;
-}
+    margin-bottom:28px;
+    padding:24px 28px;
 
+    border-radius:24px;
+
+    background:rgba(255,255,255,0.04);
+
+    border:1px solid rgba(255, 100, 220, 0.18);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 0 30px rgba(180, 70, 255, 0.08),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+}
 .dashboardHero h2{
     margin:0;
-    font-size:30px;
-    font-weight:700;
-    color:#ffffff;
-    text-shadow:0 2px 12px rgba(255,120,180,0.25);
+    font-size:46px;
+    font-weight:800;
+    color:white;
+}
+
+.dashboardHero h2 span{
+    color:#d86cff;
+    text-shadow:0 0 14px rgba(216,108,255,0.55);
 }
 
 .dashboardHero p{
-    margin:8px 0 0 0;
-    color:rgba(255,255,255,0.75);
-    font-size:15px;
+    margin:10px 0 0 0;
+    color:rgba(255,255,255,0.72);
+    font-size:16px;
 }
 
 /* ========================= */
