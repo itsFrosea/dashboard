@@ -153,7 +153,11 @@ body{
     color:rgba(255,255,255,0.85);
     cursor:pointer;
 
-    transition:all 0.25s ease;
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
 }
 
 /* hover */
@@ -215,11 +219,7 @@ body{
     font-size:15px;
     font-weight:500;
     white-space:nowrap;
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s ease;
+    transition:all 0.25s ease;
 }
 
 /* collapsed labels */
