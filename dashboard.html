@@ -65,49 +65,62 @@
 <!-- LEADERBOARD -->
 <!-- ========================= -->
 
-<div id="leaderboard" class="page">
+<div id="leaderboard" class="page active">
 
     <div class="dashboardHero">
-        <div>
-            <h2>Top <span>Chatters</span></h2>
-            <p>Track your most active community members in real time.</p>
-        </div>
+        <h2>Top <span>Chatters</span></h2>
+        <p>Track your most active community members in real time.</p>
     </div>
 
     <div class="statsRow">
 
         <div class="statCard">
-            <span>Total Users</span>
-            <h3 id="totalUsers">0</h3>
+            <div class="cardIcon">
+                <i data-lucide="users"></i>
+            </div>
+
+            <div>
+                <span>Total Users</span>
+                <h3 id="totalUsers">0</h3>
+            </div>
         </div>
 
         <div class="statCard">
-            <span>Highest Points</span>
-            <h3 id="topPoints">0</h3>
+            <div class="cardIcon">
+                <i data-lucide="star"></i>
+            </div>
+
+            <div>
+                <span>Highest Points</span>
+                <h3 id="topPoints">0</h3>
+            </div>
         </div>
 
         <div class="statCard">
-            <span>Bot Status</span>
-            <h3>Online</h3>
+            <div class="cardIcon">
+                <i data-lucide="bar-chart-3"></i>
+            </div>
+
+            <div>
+                <span>Bot Status</span>
+                <h3>Online</h3>
+            </div>
         </div>
 
     </div>
 
-    <div class="leaderboardTableWrap">
-
+    <div class="leaderboardWrap">
         <table id="leaderboardTable">
-
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>User</th>
                     <th>Points</th>
                 </tr>
             </thead>
 
             <tbody></tbody>
-
         </table>
-
     </div>
 
 </div>

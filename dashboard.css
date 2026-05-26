@@ -344,53 +344,50 @@ background:#3e57d1;
 /* ========================= */
 /* TABLE */
 /* ========================= */
-table{
-    border-collapse:separate;
-    border-spacing:0;
+#leaderboardTable{
+    width:100%;
+    border-collapse:collapse;
 
-    width:650px;
-    max-width:650px;
-
-
-    background:white;
-    border-radius:18px;
+    border-radius:24px;
     overflow:hidden;
 
-    box-shadow:0 10px 30px rgba(0,0,0,0.08);
-    border:1px solid #ececf3;
-}
-.leaderboardTableWrap{
-    width:100%;
-    display:flex;
-    justify-content:flex-end;
-}
-thead{
-    background:linear-gradient(135deg, #9146ff, #6d28d9);
+    background:rgba(14, 8, 35, 0.58);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    border:1px solid rgba(220,120,255,0.18);
+
+    box-shadow:
+        0 0 40px rgba(180,60,255,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
-th{
+#leaderboardTable thead{
+    background:linear-gradient(
+        90deg,
+        rgba(190, 70, 255, 0.95),
+        rgba(130, 30, 220, 0.95)
+    );
+}
+
+#leaderboardTable th{
+    padding:22px 24px;
     text-align:left;
-    padding:18px 20px;
-    font-size:14px;
-    font-weight:600;
+    font-size:15px;
+    font-weight:700;
     color:white;
-    letter-spacing:0.4px;
 }
 
-td{
-    padding:18px 20px;
-    font-size:14px;
-    border-top:1px solid #f2f2f7;
-    transition:all 0.2s ease;
+#leaderboardTable td{
+    padding:22px 24px;
+    color:rgba(255,255,255,0.82);
+
+    border-top:1px solid rgba(255,255,255,0.05);
 }
 
-tbody tr{
-    transition:all 0.2s ease;
-}
-
-tbody tr:hover{
-    background:#faf7ff;
-    transform:translateX(6px);
+#leaderboardTable tbody tr:hover{
+    background:rgba(255,255,255,0.03);
 }
 
 
@@ -663,38 +660,33 @@ transform:translateX(24px);
 /* ========================= */
 
 .dashboardHero{
-    margin-bottom:28px;
-    padding:24px 28px;
-
-    border-radius:24px;
-
-    background:rgba(255,255,255,0.04);
-
-    border:1px solid rgba(255, 100, 220, 0.18);
-
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-
-    box-shadow:
-        0 0 30px rgba(180, 70, 255, 0.08),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+    margin-bottom:24px;
+    padding:0;
+    background:none;
+    border:none;
+    box-shadow:none;
+    backdrop-filter:none;
 }
+
 .dashboardHero h2{
     margin:0;
-    font-size:46px;
+    font-size:56px;
     font-weight:800;
     color:white;
+    letter-spacing:-1px;
 }
 
 .dashboardHero h2 span{
     color:#d86cff;
-    text-shadow:0 0 14px rgba(216,108,255,0.55);
+    text-shadow:
+        0 0 12px rgba(216,108,255,0.55),
+        0 0 24px rgba(216,108,255,0.20);
 }
 
 .dashboardHero p{
-    margin:10px 0 0 0;
-    color:rgba(255,255,255,0.72);
+    margin-top:10px;
     font-size:16px;
+    color:rgba(255,255,255,0.72);
 }
 
 /* ========================= */
@@ -710,21 +702,28 @@ transform:translateX(24px);
 }
 
 .statCard{
-    min-width:180px;
+    display:flex;
+    align-items:center;
+    gap:18px;
 
-    background:rgba(255, 255, 255, 0.10);
-    border:1px solid rgba(255, 255, 255, 0.18);
+    padding:18px 20px;
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.14);
 
     border-radius:20px;
-    padding:20px 22px;
 
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
 
-    box-shadow:0 8px 32px rgba(0,0,0,0.18);
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.05);
 
     transition:all 0.25s ease;
 }
+
 #leaderboard{
    width:100%;
 }
@@ -742,16 +741,14 @@ transform:translateX(24px);
 
 .statCard span{
     display:block;
-    font-size:13px;
+    font-size:14px;
     font-weight:600;
-    color:#6b7280;
-    margin-bottom:10px;
-    letter-spacing:0.3px;
+    color:rgba(255,255,255,0.65);
+    margin-bottom:8px;
 }
-
 .statCard h3{
     margin:0;
     font-size:28px;
     font-weight:700;
-    color:#9146ff;
+    color:#d86cff;
 }
