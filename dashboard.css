@@ -50,65 +50,115 @@ body{
     padding:20px 10px;
 }
 
+/* ========================= */
+/* FUTURISTIC SIDEBAR */
+/* ========================= */
+
+#sidebar{
+    width:240px;
+    flex-shrink:0;
+
+    padding:20px 14px;
+
+    display:flex;
+    flex-direction:column;
+
+    position:relative;
+
+    background:rgba(10, 8, 30, 0.78);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border-right:1px solid rgba(190, 120, 255, 0.18);
+
+    box-shadow:
+        inset -1px 0 0 rgba(255,255,255,0.04),
+        0 0 40px rgba(140, 60, 255, 0.08);
+
+    transition:all 0.35s ease;
+}
+
+/* glowing sidebar edge */
+#sidebar::after{
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    width:1px;
+    height:100%;
+
+    background:linear-gradient(
+        to bottom,
+        transparent,
+        rgba(220,120,255,0.55),
+        transparent
+    );
+}
+
+/* collapsed */
+#sidebar.collapsed{
+    width:84px;
+    padding:20px 10px;
+}
+
 /* top */
 .sidebarTop{
     display:flex;
     align-items:center;
-    gap:10px;
-    margin-bottom:25px;
+    gap:12px;
     width:100%;
+    margin-bottom:30px;
 }
 
-#toggleSidebar{
-    width:44px !important;
-    height:44px !important;
-    min-width:44px !important;
-    max-width:44px !important;
+/* title */
+.sidebarTitle{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+    color:white;
 
-    padding:0 !important;
-    margin:0 !important;
+    white-space:nowrap;
+    overflow:hidden;
+    flex:1;
+
+    transition:all 0.3s ease;
+}
+
+#sidebar.collapsed .sidebarTitle{
+    width:0;
+    opacity:0;
+    flex:0;
+}
+
+/* toggle button */
+#toggleSidebar{
+    width:48px !important;
+    height:48px !important;
+    min-width:48px !important;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:transparent;
-    border:none;
-    border-radius:8px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:14px;
 
-    flex:none;
+    cursor:pointer;
+    transition:all 0.25s ease;
+}
+
+#toggleSidebar:hover{
+    background:rgba(180, 90, 255, 0.14);
+    box-shadow:0 0 20px rgba(180,90,255,0.25);
 }
 
 #toggleSidebar svg{
     width:22px;
     height:22px;
     stroke:white !important;
-    color:white !important;
 }
-
-#toggleSidebar:hover{
-    background:rgba(255,255,255,0.08);
-}
-.sidebarTitle{
-    margin:0;
-    font-size:18px;
-    font-weight:600;
-
-    opacity:1;
-    transition:opacity 0.25s ease;
-
-    overflow:hidden;
-    white-space:nowrap;
-    flex:1;
-}
-/* hide title */
-#sidebar.collapsed .sidebarTitle{
-    opacity:0;
-    width:0;
-    flex:0;
-    overflow:hidden;
-}
-
 
 /* nav buttons */
 #sidebar button:not(#toggleSidebar){
@@ -117,12 +167,14 @@ body{
     gap:14px;
 
     width:100%;
-    background:none;
+    padding:16px 16px;
+    margin-bottom:10px;
+
+    background:transparent;
     border:none;
-    color:white;
-    padding:14px 12px;
-    margin-bottom:6px;
-    border-radius:12px;
+    border-radius:16px;
+
+    color:rgba(255,255,255,0.85);
     cursor:pointer;
 
     transition:all 0.25s ease;
@@ -130,34 +182,49 @@ body{
 
 /* hover */
 #sidebar button:not(#toggleSidebar):hover{
-    background:#34344a;
+    background:rgba(170, 90, 255, 0.10);
+    box-shadow:
+        inset 0 0 0 1px rgba(190,120,255,0.14),
+        0 0 18px rgba(140,60,255,0.08);
+}
+
+/* active button */
+#sidebar button:first-of-type:not(#toggleSidebar){
+    background:rgba(180, 80, 255, 0.16);
+
+    border:1px solid rgba(220,140,255,0.22);
+
+    box-shadow:
+        0 0 24px rgba(180,80,255,0.20),
+        inset 0 0 18px rgba(255,255,255,0.03);
 }
 
 /* icons */
 #sidebar button i{
-    min-width:22px;
     width:22px;
     height:22px;
+    min-width:22px;
 }
 
 /* labels */
 #sidebar button span{
+    font-size:15px;
+    font-weight:500;
     white-space:nowrap;
-    opacity:1;
-    transition:opacity 0.2s ease;
+    transition:all 0.25s ease;
 }
 
-/* hide labels */
+/* collapsed labels */
 #sidebar.collapsed button span{
-    opacity:0;
     width:0;
+    opacity:0;
     overflow:hidden;
 }
 
-/* center icons when collapsed */
-#sidebar.collapsed button{
+/* collapsed center */
+#sidebar.collapsed button:not(#toggleSidebar){
     justify-content:center;
-    padding:14px 0;
+    padding:16px 0;
 }
 
 /* MAIN CONTENT */
@@ -603,12 +670,13 @@ transform:translateX(24px);
     margin:0;
     font-size:30px;
     font-weight:700;
-    color:#1e1e2f;
+    color:#ffffff;
+    text-shadow:0 2px 12px rgba(255,120,180,0.25);
 }
 
 .dashboardHero p{
     margin:8px 0 0 0;
-    color:#6b7280;
+    color:rgba(255,255,255,0.75);
     font-size:15px;
 }
 
