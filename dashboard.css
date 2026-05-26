@@ -179,12 +179,12 @@ body{
 
     background:linear-gradient(
         90deg,
-        rgba(255,80,220,0.20) 0%,
-        rgba(170,70,255,0.14) 40%,
+        rgba(255,80,220,0.28) 0%,
+        rgba(170,70,255,0.20) 40%,
         rgba(90,40,180,0.06) 100%
     );
 
-    border:1px solid rgba(255,170,255,0.45);
+    border:1px solid rgba(255,190,255,0.65);
 
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.10),
@@ -199,8 +199,8 @@ body{
 
     top:-6px;
     bottom:-6px;
-    left:-14px;
-    width:70px;
+    left:-24px;
+    width:95px;
 
     background:radial-gradient(
         circle,
