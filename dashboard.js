@@ -145,16 +145,17 @@ const table = document.querySelector("#leaderboardTable tbody")
 table.innerHTML = ""
 
 if(!data || data.length === 0){
-table.innerHTML = `<tr><td colspan="2">No data yet</td></tr>`
+table.innerHTML = `<tr><td colspan="3">No data yet</td></tr>`
 return
 }
 
 data.forEach((user,i)=>{
 const row = document.createElement("tr")
 row.innerHTML = `
-<td>${i+1}. ${user.username}</td>
-<td>${user.points}</td>
-`
+    <td>${i + 1}</td>
+    <td>${user.username}</td>
+    <td>${user.points}</td>
+`;
 table.appendChild(row)
 })
 
