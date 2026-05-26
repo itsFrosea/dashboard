@@ -196,47 +196,27 @@ body{
     content:"";
     position:absolute;
 
-    left:-22px;
+    left:-35px;
     top:50%;
 
-    width:48px;
-    height:48px;
+    width:70px;
+    height:70px;
 
     transform:translateY(-50%);
-
     border-radius:50%;
 
     background:radial-gradient(
         circle,
         rgba(255,255,255,0.95) 0%,
-        rgba(255,150,240,0.55) 30%,
-        rgba(200,90,255,0.14) 65%,
-        transparent 100%
+        rgba(255,150,240,0.65) 22%,
+        rgba(200,90,255,0.22) 48%,
+        transparent 75%
     );
 
-    filter:blur(12px);
-    z-index:-1;
+    filter:blur(14px);
     pointer-events:none;
+    z-index:-1;
 }
-
-#sidebar button.active::after{
-    content:"";
-    position:absolute;
-
-    left:0;
-    top:10px;
-    bottom:10px;
-
-    width:2px;
-    border-radius:999px;
-
-    background:white;
-
-    box-shadow:
-        0 0 10px rgba(255,255,255,0.9),
-        0 0 20px rgba(255,120,240,0.8);
-}
-
 /* icons */
 #sidebar button i{
     width:22px;
