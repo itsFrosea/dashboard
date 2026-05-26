@@ -197,24 +197,25 @@ body{
     content:"";
     position:absolute;
 
-    left:-35px;
+    left:-55px;
     top:50%;
 
-    width:70px;
-    height:70px;
+    width:130px;
+    height:90px;
 
     transform:translateY(-50%);
-    border-radius:50%;
+    border-radius:999px;
 
     background:radial-gradient(
-        circle,
+        ellipse at center,
         rgba(255,255,255,0.95) 0%,
-        rgba(255,150,240,0.65) 22%,
-        rgba(200,90,255,0.22) 48%,
-        transparent 75%
+        rgba(255,190,250,0.70) 18%,
+        rgba(220,120,255,0.35) 42%,
+        rgba(180,80,255,0.12) 65%,
+        transparent 85%
     );
 
-    filter:blur(14px);
+    filter:blur(18px);
     pointer-events:none;
     z-index:1;
 }
