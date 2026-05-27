@@ -16,14 +16,12 @@ body{
         radial-gradient(circle at bottom left, rgba(140, 80, 255, 0.25), transparent 35%),
         linear-gradient(135deg, #120b1a 0%, #1e1328 45%, #2b1634 100%);
 }
-body{
-    zoom:0.88;
-}
+
 
 /* APP */
 .app{
     display:flex;
-    height:100vh;
+    min-height:100vh;
     width:100%;
     overflow:hidden;
 }
@@ -288,7 +286,7 @@ body{
 #content{
     flex:1;
     width:100%;
-    padding:40px;
+    padding:28px;
     overflow-y:auto;
     background:transparent;
     transition:all 0.35s ease;
@@ -451,7 +449,7 @@ background:#3e57d1;
 
 /* rows */
 #leaderboardTable td{
-    padding:24px 28px;
+    padding:18px 24px;
     font-size:15px;
     color:white;
 
@@ -778,7 +776,7 @@ transform:translateX(24px);
 
 .dashboardHero h2{
     margin:0;
-    font-size:56px;
+    font-size:46px;
     font-weight:800;
     color:white;
     letter-spacing:-1px;
@@ -814,7 +812,7 @@ transform:translateX(24px);
     align-items:center;
     gap:18px;
 
-    padding:18px 20px;
+    padding:14px 18px;
 
     background:rgba(255,255,255,0.08);
 
@@ -1164,4 +1162,120 @@ transform:translateX(24px);
     .commandBottomRow{
         grid-template-columns:1fr;
     }
+}
+
+/* ========================= */
+/* FINAL UI CLEANUP */
+/* ========================= */
+
+/* fix page stretching */
+.page{
+    width:100%;
+    max-width:100%;
+}
+
+/* leaderboard full fit */
+#leaderboard{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+.leaderboardWrap{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+/* make table more compact */
+#leaderboardTable th{
+    padding:16px 22px;
+}
+
+#leaderboardTable td{
+    padding:16px 22px;
+}
+
+/* reduce sidebar visual heaviness */
+#sidebar{
+    padding-top:14px;
+}
+
+.sidebarTop{
+    margin-bottom:18px;
+}
+
+/* nav buttons smaller */
+#sidebar button:not(#toggleSidebar){
+    padding:13px 14px;
+    border-radius:14px;
+}
+
+/* icons */
+#sidebar button i{
+    width:19px;
+    height:19px;
+}
+
+/* command page spacing */
+.commandsPanel{
+    padding:24px;
+}
+
+.commandsHero h2{
+    font-size:42px;
+}
+
+/* prevent giant spacing */
+.commandsGrid{
+    align-items:stretch;
+}
+
+/* preview panel same height */
+.previewPanel{
+    height:100%;
+}
+
+/* fix old white inputs overriding futuristic style */
+.commandForm input,
+#commandName,
+#commandResponse,
+#pointsAmount{
+    background:rgba(255,255,255,0.04) !important;
+    border:1px solid rgba(220,140,255,0.12) !important;
+    color:white !important;
+}
+
+/* placeholders */
+.commandForm input::placeholder{
+    color:rgba(255,255,255,0.35);
+}
+
+/* command rows futuristic */
+.commandRow{
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    padding:18px 0;
+}
+
+/* command response text */
+.cmdResponse{
+    color:rgba(255,255,255,0.65);
+}
+
+/* remove ugly white backgrounds */
+.cmdHelp,
+#cmdPreview{
+    background:rgba(255,255,255,0.04) !important;
+    border:1px solid rgba(255,255,255,0.06) !important;
+    color:white !important;
+}
+
+/* better content width */
+#content{
+    padding:24px 26px;
+}
+
+/* smoother scrolling */
+html{
+    scroll-behavior:smooth;
 }
