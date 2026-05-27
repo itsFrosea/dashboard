@@ -296,54 +296,59 @@ popup.style.display === "block" ? "none" : "block"
 
 async function addCommand(){
 
-const params = new URLSearchParams(window.location.search)
-const channel = params.get("channel")
+    const params = new URLSearchParams(window.location.search)
+    const channel = params.get("channel")
 
-const command = document
-    .getElementById("commandName")
-    .value
-    .replace(/^!/, "")
-    .trim();
-let command = document.getElementById("commandName").value.trim()
+    let command = document
+        .getElementById("commandName")
+        .value
+        .trim()
 
-/* remove extra ! if user types it */
-command = command.replace(/^!+/, "")
+    const response = document
+        .getElementById("commandResponse")
+        .value
+        .trim()
 
-/* store properly */
-command = "!" + command
+    /* remove extra ! */
+    command = command.replace(/^!+/, "")
 
-if(!command || !response){
-alert("Command and response required")
-return
+    /* store properly */
+    command = "!" + command
+
+    if(!command || !response){
+        alert("Command and response required")
+        return
+    }
+
+    const url = editingCommand
+    ? "https://sharan-bot-kp71.onrender.com/command/update"
+    : "https://sharan-bot-kp71.onrender.com/command/add";
+
+    await fetch(url,{
+        method:"POST",
+        headers:getAuthHeaders(),
+        body:JSON.stringify({
+            channel:channel,
+            command:command,
+            response:response,
+            old_command:editingCommand,
+            give_points:document.getElementById("givePoints").checked ? 1 : 0,
+            points_amount:Number(
+                document.getElementById("pointsAmount").value || 0
+            )
+        })
+    })
+
+    editingCommand = null
+
+    document.getElementById("commandSubmitBtn").innerText =
+    "Add Command"
+
+    document.getElementById("commandName").value = ""
+    document.getElementById("commandResponse").value = ""
+
+    loadCommands()
 }
-
-const url = editingCommand
-? "https://sharan-bot-kp71.onrender.com/command/update"
-: "https://sharan-bot-kp71.onrender.com/command/add";
-
-await fetch(url,
-{
-method:"POST",
-headers: getAuthHeaders(),
-body: JSON.stringify({
-    channel: channel,
-    command: command.trim(),
-    response: response,
-    old_command: editingCommand, // will be null for add
-    give_points: document.getElementById("givePoints").checked ? 1 : 0,
-    points_amount: Number(document.getElementById("pointsAmount").value || 0)
-})
-}
-)
-editingCommand = null;
-document.getElementById("commandSubmitBtn").innerText = "Add Command";
-
-document.getElementById("commandName").value=""
-document.getElementById("commandResponse").value=""
-
-setTimeout(loadCommands,1500)
-}
-
 // =====================
 // DELETE COMMAND
 // =====================
