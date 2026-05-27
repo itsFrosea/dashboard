@@ -109,31 +109,66 @@ body{
 
 /* toggle button */
 #toggleSidebar{
-    width:48px !important;
-    height:48px !important;
-    min-width:48px !important;
+    width:42px;
+    height:42px;
+    min-width:42px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:14px;
-
+    background:none;
+    border:none;
     cursor:pointer;
-    transition:all 0.25s ease;
+    padding:0;
+    position:relative;
 }
 
-#toggleSidebar:hover{
-    background:rgba(180, 90, 255, 0.14);
-    box-shadow:0 0 20px rgba(180,90,255,0.25);
+.hamburger{
+    width:26px;
+    height:20px;
+    position:relative;
 }
 
-#toggleSidebar svg{
-    width:22px;
-    height:22px;
-    stroke:white !important;
+.hamburger span{
+    position:absolute;
+    left:0;
+
+    width:100%;
+    height:3px;
+
+    background:white;
+    border-radius:999px;
+
+    transition:all 0.35s ease;
+}
+
+/* normal hamburger */
+.hamburger span:nth-child(1){
+    top:0;
+}
+
+.hamburger span:nth-child(2){
+    top:8px;
+}
+
+.hamburger span:nth-child(3){
+    top:16px;
+}
+
+#sidebar:not(.collapsed) .hamburger span:nth-child(1){
+    top:8px;
+    transform:rotate(45deg);
+}
+
+#sidebar:not(.collapsed) .hamburger span:nth-child(2){
+    opacity:0;
+    transform:scaleX(0);
+}
+
+#sidebar:not(.collapsed) .hamburger span:nth-child(3){
+    top:8px;
+    transform:rotate(-45deg);
 }
 
 /* nav buttons */
