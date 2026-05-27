@@ -304,7 +304,13 @@ const command = document
     .value
     .replace(/^!/, "")
     .trim();
-const response = document.getElementById("commandResponse").value
+let command = document.getElementById("commandName").value.trim()
+
+/* remove extra ! if user types it */
+command = command.replace(/^!+/, "")
+
+/* store properly */
+command = "!" + command
 
 if(!command || !response){
 alert("Command and response required")
