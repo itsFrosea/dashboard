@@ -170,65 +170,111 @@ console.error("Leaderboard load failed:", err)
 
 async function loadCommands(){
 
-const params = new URLSearchParams(window.location.search)
-const channel = params.get("channel")
+    const params = new URLSearchParams(window.location.search);
+    const channel = params.get("channel");
 
-if(!channel){
-console.log("No channel")
-return
-}
+    if(!channel){
+        console.log("No channel");
+        return;
+    }
 
-try{
+    try{
 
-const res = await fetch(
-`https://sharan-bot-kp71.onrender.com/commands?channel=${channel}`,
-{
-    method: "GET",
-    headers: getAuthHeaders(),
-    mode: "cors"
-}
-)
+        const res = await fetch(
+            `https://sharan-bot-kp71.onrender.com/commands?channel=${channel}`,
+            {
+                method:"GET",
+                headers:getAuthHeaders(),
+                mode:"cors"
+            }
+        );
 
-const data = await res.json()
+        const data = await res.json();
 
-const container = document.getElementById("commandsList")
-container.innerHTML = ""
+        const container = document.getElementById("commandsList");
+        container.innerHTML = "";
 
-if(!data || data.length === 0){
-container.innerHTML = "<p>No commands yet</p>"
-return
-}
+        if(!data || data.length === 0){
+            container.innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align:center; color:rgba(255,255,255,0.6);">
+                        No commands yet
+                    </td>
+                </tr>
+            `;
+            return;
+        }
 
-data.forEach(cmd=>{
+        data.forEach(cmd=>{
 
-const row = document.createElement("div")
-row.className = "commandRow"
+            const row = document.createElement("tr");
 
-row.innerHTML = `
-<div class="cmdName">${cmd.command}</div>
-<div class="cmdResponse">${cmd.response}</div>
+            row.innerHTML = `
+                <td>
+                    <span style="
+                        color:#d86cff;
+                        font-weight:700;
+                    ">
+                        !${cmd.command}
+                    </span>
+                </td>
 
-<div>
-    ${cmd.give_points ? `💰 +${cmd.points_amount}` : ""}
-</div>
+                <td style="
+                    max-width:420px;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                    color:rgba(255,255,255,0.85);
+                ">
+                    ${cmd.response}
+                </td>
 
-<div class="cmdMenu">
-<button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
-<div class="cmdPopup">
-<button onclick="startEditCommand('${cmd.command.replace(/'/g,"")}', '${cmd.response.replace(/'/g,"")}')">✏️ Edit</button>
-<button onclick="deleteCommand('${cmd.command.replace(/'/g,"")}')">🗑 Delete</button></div>
-</div>
-`
+                <td>
+                    ${
+                        cmd.give_points
+                        ? `<span style="
+                            padding:8px 12px;
+                            border-radius:12px;
+                            background:rgba(80,255,150,0.08);
+                            border:1px solid rgba(80,255,150,0.16);
+                            color:#86ffb5;
+                            font-weight:600;
+                        ">
+                            +${cmd.points_amount}
+                        </span>`
+                        : `<span style="
+                            color:rgba(255,255,255,0.45);
+                        ">
+                            None
+                        </span>`
+                    }
+                </td>
 
-row.oncontextmenu = (e)=> showContextMenu(e, cmd.command)
+                <td>
+                    <div class="cmdMenu">
+                        <button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
 
-container.appendChild(row)
+                        <div class="cmdPopup">
+                            <button onclick="startEditCommand(
+                                '${cmd.command.replace(/'/g,"")}',
+                                '${cmd.response.replace(/'/g,"")}'
+                            )">✏️ Edit</button>
 
-})
+                            <button onclick="deleteCommand(
+                                '${cmd.command.replace(/'/g,"")}'
+                            )">🗑 Delete</button>
+                        </div>
+                    </div>
+                </td>
+            `;
 
-}catch(err){
-console.error("Commands load failed:", err)
-}
+            container.appendChild(row);
+
+        });
+
+    }catch(err){
+        console.error("Commands load failed:", err);
+    }
 }
 
 function toggleMenu(btn){
@@ -253,7 +299,11 @@ async function addCommand(){
 const params = new URLSearchParams(window.location.search)
 const channel = params.get("channel")
 
-const command = document.getElementById("commandName").value
+const command = document
+    .getElementById("commandName")
+    .value
+    .replace(/^!/, "")
+    .trim();
 const response = document.getElementById("commandResponse").value
 
 if(!command || !response){

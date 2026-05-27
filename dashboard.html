@@ -183,53 +183,105 @@ Save Medal Settings
 
 <div id="commands" class="page">
 
-<h2>Custom Commands</h2>
-
-<div class="cmdLayout">
-
-  <!-- LEFT SIDE -->
-  <div class="cmdLeft">
-
-    <label>Command</label>
-    <input id="commandName" placeholder="!lurk">
-
-    <label>Response</label>
-    <input id="commandResponse" placeholder="{user} is now lurking!">
-
-  </div>
-
-  <!-- RIGHT SIDE -->
-  <div class="cmdRight">
-
-    <div class="cmdHelp">
-      <b>Preview:</b>
-      <div id="cmdPreview">{user} is now lurking!</div>
-
-      <br>
-
-      <b>Available variables:</b><br>
-      <span><code>{user}</code> → you</span><br>
-      <span><code>{target}</code> → mentioned user</span>
+    <div class="commandsHero">
+        <h2>Custom <span>Commands</span></h2>
+        <p>Create, manage and customize your bot commands.</p>
     </div>
 
-  </div>
+    <!-- CREATE COMMAND PANEL -->
+    <div class="commandsPanel">
 
-</div>
+        <div class="commandsGrid">
 
-<label>
-    <input type="checkbox" id="givePoints">
-    Give Points
-</label>
+            <!-- LEFT -->
+            <div class="commandForm">
 
-<input type="number" id="pointsAmount" placeholder="Points amount">
+                <div class="field">
+                    <label>Command</label>
+                    <div class="commandInputWrap">
+                        <span class="cmdPrefix">!</span>
+                        <input id="commandName" placeholder="lurk">
+                    </div>
+                    <small>Use without ! (example: lurk)</small>
+                </div>
 
-<div id="commandsList"></div>
+                <div class="field">
+                    <label>Response</label>
+                    <input id="commandResponse" placeholder="{user} is now lurking!">
+                    <small>You can use variables in your response.</small>
+                </div>
 
-<br><br>
+                <div class="commandBottomRow">
 
-<button id="commandSubmitBtn" onclick="addCommand()">
-Add Command
-</button>
+                    <div class="toggleBox">
+                        <label>Give Points</label>
+
+                        <label class="switch modernSwitch">
+                            <input type="checkbox" id="givePoints">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="pointsBox">
+                        <label>Points Amount</label>
+                        <input type="number" id="pointsAmount" placeholder="50">
+                    </div>
+
+                </div>
+
+                <div class="commandButtons">
+                    <button id="commandSubmitBtn" onclick="addCommand()">
+                        + Add Command
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="previewPanel">
+
+                <h3>👁 Preview</h3>
+
+                <div id="cmdPreview" class="previewBubble">
+                    frosea is now lurking!
+                </div>
+
+                <div class="variablesBox">
+                    <h4>Available variables:</h4>
+
+                    <div class="varTags">
+                        <span>{user} → you</span>
+                        <span>{target} → mentioned user</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- COMMAND LIST -->
+    <div class="commandsTableWrap">
+
+        <div class="commandsTableHeader">
+            <h3>Your Commands</h3>
+        </div>
+
+        <table id="commandsTable">
+            <thead>
+                <tr>
+                    <th>COMMAND</th>
+                    <th>RESPONSE</th>
+                    <th>REWARD</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+
+            <tbody id="commandsList"></tbody>
+        </table>
+
+    </div>
 
 </div>
 

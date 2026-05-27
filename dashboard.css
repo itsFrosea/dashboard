@@ -16,7 +16,9 @@ body{
         radial-gradient(circle at bottom left, rgba(140, 80, 255, 0.25), transparent 35%),
         linear-gradient(135deg, #120b1a 0%, #1e1328 45%, #2b1634 100%);
 }
-
+body{
+    zoom:0.88;
+}
 
 /* APP */
 .app{
@@ -882,4 +884,284 @@ transform:translateX(24px);
     width:28px;
     height:28px;
     color:#d86cff;
+}
+
+/* ========================= */
+/* COMMANDS PAGE REDESIGN */
+/* ========================= */
+
+.commandsHero{
+    margin-bottom:24px;
+}
+
+.commandsHero h2{
+    margin:0;
+    font-size:52px;
+    font-weight:800;
+    color:white;
+    letter-spacing:-1px;
+}
+
+.commandsHero h2 span{
+    color:#d86cff;
+    text-shadow:
+        0 0 12px rgba(216,108,255,0.55),
+        0 0 24px rgba(216,108,255,0.20);
+}
+
+.commandsHero p{
+    margin-top:10px;
+    font-size:16px;
+    color:rgba(255,255,255,0.72);
+}
+
+/* main top panel */
+.commandsPanel{
+    background:rgba(10, 8, 28, 0.72);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    border:1px solid rgba(210,140,255,0.14);
+    border-radius:28px;
+
+    padding:30px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.04),
+        0 0 30px rgba(180,80,255,0.08);
+
+    margin-bottom:28px;
+}
+
+/* grid */
+.commandsGrid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:28px;
+    align-items:start;
+}
+
+/* form */
+.commandForm{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+}
+
+.field label{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:10px;
+    color:white;
+}
+
+.field small{
+    display:block;
+    margin-top:8px;
+    font-size:13px;
+    color:rgba(255,255,255,0.55);
+}
+
+/* custom inputs */
+.commandForm input{
+    width:100%;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(220,140,255,0.12);
+    color:white;
+    padding:16px 18px;
+    border-radius:16px;
+    font-size:15px;
+    outline:none;
+    transition:all 0.25s ease;
+}
+
+.commandForm input:focus{
+    border-color:rgba(216,108,255,0.45);
+    box-shadow:0 0 20px rgba(216,108,255,0.15);
+}
+
+/* command prefix */
+.commandInputWrap{
+    display:flex;
+    align-items:center;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(220,140,255,0.12);
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.commandInputWrap input{
+    border:none;
+    background:transparent;
+    box-shadow:none;
+}
+
+.cmdPrefix{
+    padding:0 18px;
+    font-size:18px;
+    font-weight:700;
+    color:#d86cff;
+}
+
+/* bottom row */
+.commandBottomRow{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.toggleBox,
+.pointsBox{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:18px;
+    padding:20px;
+}
+
+.toggleBox label,
+.pointsBox label{
+    color:white;
+    font-weight:600;
+}
+
+/* preview panel */
+.previewPanel{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:22px;
+    padding:24px;
+}
+
+.previewPanel h3{
+    margin:0 0 18px 0;
+    font-size:20px;
+    color:white;
+}
+
+.previewBubble{
+    background:rgba(0,0,0,0.22);
+    border:1px solid rgba(220,140,255,0.10);
+    padding:18px;
+    border-radius:16px;
+    font-size:16px;
+    margin-bottom:22px;
+    color:white;
+}
+
+.variablesBox h4{
+    margin:0 0 14px 0;
+    color:white;
+}
+
+.varTags{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.varTags span{
+    display:inline-block;
+    padding:10px 14px;
+    border-radius:14px;
+    background:rgba(216,108,255,0.08);
+    border:1px solid rgba(216,108,255,0.12);
+    color:#f0d4ff;
+    font-size:14px;
+}
+
+/* buttons */
+.commandButtons{
+    margin-top:8px;
+}
+
+.commandButtons button{
+    background:linear-gradient(
+        135deg,
+        #c04fff,
+        #8f3cff
+    ) !important;
+
+    border:none;
+    border-radius:16px;
+    padding:16px 26px;
+    font-size:15px;
+    font-weight:700;
+    color:white;
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 24px rgba(180,80,255,0.25),
+        0 0 20px rgba(180,80,255,0.16);
+
+    transition:all 0.25s ease;
+}
+
+.commandButtons button:hover{
+    transform:translateY(-2px);
+}
+
+/* table wrap */
+.commandsTableWrap{
+    background:rgba(10, 8, 28, 0.72);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    border:1px solid rgba(210,140,255,0.14);
+    border-radius:28px;
+    overflow:hidden;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.commandsTableHeader{
+    padding:24px 28px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.commandsTableHeader h3{
+    margin:0;
+    font-size:22px;
+    color:white;
+}
+
+#commandsTable{
+    width:100%;
+    border-collapse:collapse;
+}
+
+#commandsTable th{
+    text-align:left;
+    padding:20px 28px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:rgba(255,255,255,0.55);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+#commandsTable td{
+    padding:22px 28px;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    color:white;
+    font-size:15px;
+}
+
+#commandsTable tbody tr:hover{
+    background:rgba(216,108,255,0.04);
+}
+
+/* responsive */
+@media(max-width:1000px){
+
+    .commandsGrid{
+        grid-template-columns:1fr;
+    }
+
+    .commandBottomRow{
+        grid-template-columns:1fr;
+    }
 }
