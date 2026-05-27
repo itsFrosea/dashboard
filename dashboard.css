@@ -107,68 +107,84 @@ body{
     flex:0;
 }
 
-/* toggle button */
+/* TOGGLE BUTTON */
 #toggleSidebar{
-    width:42px;
-    height:42px;
-    min-width:42px;
+    width:42px !important;
+    height:42px !important;
+    min-width:42px !important;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
 
-    background:none;
-    border:none;
+    background:transparent !important;
+    border:none !important;
+    box-shadow:none !important;
+
     cursor:pointer;
-    padding:0;
+    padding:0 !important;
+    margin:0 !important;
+
+    appearance:none;
+    -webkit-appearance:none;
+
     position:relative;
+    z-index:100;
 }
 
+/* hamburger container */
 .hamburger{
+    position:relative;
     width:26px;
     height:20px;
-    position:relative;
+    flex-shrink:0;
 }
 
+/* bars */
 .hamburger span{
     position:absolute;
     left:0;
 
-    width:100%;
+    width:26px;
     height:3px;
 
-    background:white;
+    background:#fff;
     border-radius:999px;
 
+    display:block;
+    transform-origin:center;
     transition:all 0.35s ease;
 }
-
-/* normal hamburger */
+/* expanded = X */
 .hamburger span:nth-child(1){
-    top:0;
-}
-
-.hamburger span:nth-child(2){
-    top:8px;
-}
-
-.hamburger span:nth-child(3){
-    top:16px;
-}
-
-#sidebar:not(.collapsed) .hamburger span:nth-child(1){
     top:8px;
     transform:rotate(45deg);
 }
 
-#sidebar:not(.collapsed) .hamburger span:nth-child(2){
+.hamburger span:nth-child(2){
+    top:8px;
     opacity:0;
-    transform:scaleX(0);
 }
 
-#sidebar:not(.collapsed) .hamburger span:nth-child(3){
+.hamburger span:nth-child(3){
     top:8px;
     transform:rotate(-45deg);
+}
+
+/* collapsed = hamburger */
+#sidebar.collapsed .hamburger span:nth-child(1){
+    top:0;
+    transform:rotate(0);
+}
+
+#sidebar.collapsed .hamburger span:nth-child(2){
+    top:8px;
+    opacity:1;
+}
+
+#sidebar.collapsed .hamburger span:nth-child(3){
+    top:16px;
+    transform:rotate(0);
 }
 
 /* nav buttons */
@@ -246,7 +262,7 @@ body{
 }
 
 /* labels */
-#sidebar button span{
+#sidebar button:not(#toggleSidebar) span{
     font-size:15px;
     font-weight:500;
     white-space:nowrap;
@@ -254,7 +270,7 @@ body{
 }
 
 /* collapsed labels */
-#sidebar.collapsed button span{
+#sidebar.collapsed button:not(#toggleSidebar) span{
     width:0;
     opacity:0;
     overflow:hidden;
