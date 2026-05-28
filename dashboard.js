@@ -92,27 +92,6 @@ function openPage(id){
 // CONTEXT MENU
 // =====================
 
-function showContextMenu(e, command){
-
-e.preventDefault()
-
-selectedCommand = command.trim()
-
-const menu = document.getElementById("contextMenu")
-
-menu.style.display = "block"
-
-menu.style.left = e.pageX + "px"
-menu.style.top = e.pageY + "px"
-
-}
-
-document.addEventListener("click", ()=>{
-const menu = document.getElementById("contextMenu")
-if(menu){
-menu.style.display = "none"
-}
-})
 
 // =====================
 // LOAD LEADERBOARD
@@ -215,7 +194,7 @@ async function loadCommands(){
                         color:#d86cff;
                         font-weight:700;
                     ">
-                        !${cmd.command}
+                        ${cmd.command}
                     </span>
                 </td>
 
@@ -251,19 +230,23 @@ async function loadCommands(){
                 </td>
 
                 <td>
-                    <div class="cmdMenu">
-                        <button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
+                    <div class="actionButtons">
 
-                        <div class="cmdPopup">
-                            <button onclick="startEditCommand(
-                                '${cmd.command.replace(/'/g,"")}',
-                                '${cmd.response.replace(/'/g,"")}'
-                            )">✏️ Edit</button>
+                        <button class="editBtn"
+                        onclick="startEditCommand(
+                            '${cmd.command.replace(/'/g,"")}',
+                            '${cmd.response.replace(/'/g,"")}'
+                        )">
+                            Edit
+                        </button>
 
-                            <button onclick="deleteCommand(
-                                '${cmd.command.replace(/'/g,"")}'
-                            )">🗑 Delete</button>
-                        </div>
+                        <button class="deleteBtn"
+                        onclick="deleteCommand(
+                            '${cmd.command.replace(/'/g,"")}'
+                        )">
+                            Delete
+                        </button>
+
                     </div>
                 </td>
             `;
@@ -275,19 +258,6 @@ async function loadCommands(){
     }catch(err){
         console.error("Commands load failed:", err);
     }
-}
-
-function toggleMenu(btn){
-const popup = btn.nextElementSibling
-
-document.querySelectorAll(".cmdPopup").forEach(p=>{
-if(p !== popup){
-p.style.display = "none"
-}
-})
-
-popup.style.display =
-popup.style.display === "block" ? "none" : "block"
 }
 
 // =====================
@@ -568,11 +538,18 @@ row.innerHTML = `
 <div class="cmdResponse">${msg.message}</div>
 <div>${msg.interval_minutes} messages</div>
 
-<div class="cmdMenu">
-<button class="menuBtn" onclick="toggleMenu(this)">⋮</button>
-<div class="cmdPopup">
-<button onclick="startEditTimed('${msg.message.replace(/'/g,"")}')">✏️ Edit</button>
-<button onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">🗑 Delete</button></div>
+<div class="actionButtons">
+
+    <button class="editBtn"
+    onclick="startEditTimed('${msg.message.replace(/'/g,"")}')">
+        Edit
+    </button>
+
+    <button class="deleteBtn"
+    onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">
+        Delete
+    </button>
+
 </div>
 `
 
