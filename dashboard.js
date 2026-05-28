@@ -531,26 +531,48 @@ return
 
 data.forEach(msg => {
 
-const row = document.createElement("div")
+const row = document.createElement("tr")
 row.className = "commandRow"
 
 row.innerHTML = `
-<div class="cmdResponse">${msg.message}</div>
-<div>${msg.interval_minutes} messages</div>
+    <td style="
+        color:rgba(255,255,255,0.85);
+        max-width:500px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    ">
+        ${msg.message}
+    </td>
 
-<div class="actionButtons">
+    <td>
+        <span style="
+            padding:8px 12px;
+            border-radius:12px;
+            background:rgba(216,108,255,0.10);
+            border:1px solid rgba(216,108,255,0.18);
+            color:#f0b6ff;
+            font-weight:600;
+        ">
+            ${msg.interval_minutes} min
+        </span>
+    </td>
 
-    <button class="editBtn"
-    onclick="startEditTimed('${msg.message.replace(/'/g,"")}')">
-        Edit
-    </button>
+    <td>
+        <div class="actionButtons">
 
-    <button class="deleteBtn"
-    onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">
-        Delete
-    </button>
+            <button class="editBtn"
+            onclick="startEditTimed('${msg.message.replace(/'/g,"")}')">
+                Edit
+            </button>
 
-</div>
+            <button class="deleteBtn"
+            onclick="deleteTimed('${msg.message.replace(/'/g,"")}')">
+                Delete
+            </button>
+
+        </div>
+    </td>
 `
 
 container.appendChild(row)

@@ -293,23 +293,95 @@ Save Medal Settings
 
 <div id="timed" class="page">
 
-<h2>Timed Messages</h2>
+    <div class="commandsHero">
+        <h2>Timed <span>Messages</span></h2>
+        <p>Automatically send messages in chat every few minutes.</p>
+    </div>
 
-<label>Message</label>
-<input id="timedMessage" placeholder="Follow the stream!">
+    <!-- PANEL -->
+    <div class="commandsPanel">
 
-<label>Message Interval</label>
-<input id="timedInterval" type="number">
+        <div class="commandsGrid">
 
-<br><br>
+            <!-- LEFT -->
+            <div class="commandForm">
 
-<button id="timedSubmitBtn" onclick="addTimed()">
-Add Timed Message
-</button>
+                <div class="field">
+                    <label>Message</label>
 
-<hr>
+                    <input
+                    id="timedMessage"
+                    placeholder="Follow the stream for more content!">
+                </div>
 
-<div id="timedList"></div>
+                <div class="field">
+                    <label>Interval (minutes)</label>
+
+                    <input
+                    id="timedInterval"
+                    type="number"
+                    placeholder="15">
+                </div>
+
+                <div class="commandButtons">
+                    <button
+                    id="timedSubmitBtn"
+                    onclick="addTimed()">
+
+                        + Add Timed Message
+
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="previewPanel">
+
+                <h3>⏰ Preview</h3>
+
+                <div class="previewBubble">
+                    Follow the stream for more content!
+                </div>
+
+                <div class="variablesBox">
+                    <h4>Tips</h4>
+
+                    <div class="varTags">
+                        <span>Keep messages short</span>
+                        <span>Use every 10-20 mins</span>
+                        <span>Avoid spam frequency</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- LIST -->
+    <div class="commandsTableWrap">
+
+        <div class="commandsTableHeader">
+            <h3>Your Timed Messages</h3>
+        </div>
+
+        <table id="commandsTable">
+
+            <thead>
+                <tr>
+                    <th>MESSAGE</th>
+                    <th>INTERVAL</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+
+            <tbody id="timedList"></tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
