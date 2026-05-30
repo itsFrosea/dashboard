@@ -337,11 +337,34 @@ font-size:14px;
 }
 
 .commandRow{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:12px;
-border-bottom:1px solid #eee;
+    display:grid;
+    grid-template-columns: 1fr 120px 160px;
+
+    align-items:center;
+
+    padding:20px 28px;
+
+    border-bottom:1px solid rgba(255,255,255,0.06);
+
+    gap:20px;
+}
+
+.cmdResponse{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    color:white;
+}
+
+.intervalBadge{
+    justify-self:center;
+}
+
+.actionButtons{
+    justify-self:end;
+
+    display:flex;
+    gap:10px;
 }
 
 .cmdName{
@@ -351,7 +374,7 @@ width:140px;
 
 .cmdResponse{
 flex:1;
-color:#555;
+color:rgba(255,255,255,0.85);
 }
 
 .cmdMenu{
