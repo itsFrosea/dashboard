@@ -132,49 +132,119 @@
 
 
 <!-- ========================= -->
-<!-- ECONOMY SETTINGS -->
+<!-- ECONOMY -->
 <!-- ========================= -->
 
 <div id="economy" class="page">
 
-<h2>Economy Settings</h2>
+    <div class="commandsHero">
+        <h2>Economy <span>Settings</span></h2>
+        <p>Configure your channel currency, rewards and medals.</p>
+    </div>
 
-<label>Currency Name</label>
-<input id="currencyName">
+    <!-- STATS -->
+    <div class="statsRow">
 
-<label>Points Per Message</label>
-<input id="pointsPerMessage" type="number">
+        <div class="statCard">
+            <div class="cardIcon">
+                <i data-lucide="coins"></i>
+            </div>
 
-<label>Daily Reward</label>
-<input id="dailyReward" type="number">
+            <div>
+                <span>Currency</span>
+                <h3 id="currencyDisplay">Coins</h3>
+            </div>
+        </div>
 
-<br><br>
+        <div class="statCard">
+            <div class="cardIcon">
+                <i data-lucide="message-circle"></i>
+            </div>
 
-<button onclick="saveEconomy()">
-Save Economy Settings
-</button>
+            <div>
+                <span>Points / Message</span>
+                <h3 id="ppmDisplay">1</h3>
+            </div>
+        </div>
 
-<h3>Medals System</h3>
+        <div class="statCard">
+            <div class="cardIcon">
+                <i data-lucide="gift"></i>
+            </div>
 
-<div class="toggleRow">
+            <div>
+                <span>Daily Reward</span>
+                <h3 id="dailyDisplay">100</h3>
+            </div>
+        </div>
 
-<span>Enable Medals</span>
+    </div>
 
-<label class="switch">
-<input type="checkbox" id="medalsEnabled">
-<span class="slider"></span>
-</label>
+    <!-- ECONOMY SETTINGS -->
+    <div class="commandsPanel">
+
+        <h3 class="panelTitle">💰 Economy Configuration</h3>
+
+        <div class="commandForm">
+
+            <div class="field">
+                <label>Currency Name</label>
+                <input id="currencyName" placeholder="Coins">
+                <small>Name of your channel currency.</small>
+            </div>
+
+            <div class="field">
+                <label>Points Per Message</label>
+                <input id="pointsPerMessage" type="number" placeholder="5">
+                <small>Reward viewers for chatting.</small>
+            </div>
+
+            <div class="field">
+                <label>Daily Reward</label>
+                <input id="dailyReward" type="number" placeholder="100">
+                <small>Amount given when using !daily.</small>
+            </div>
+
+            <div class="commandButtons">
+                <button onclick="saveEconomy()">
+                    Save Economy Settings
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MEDALS -->
+    <div class="commandsPanel">
+
+        <h3 class="panelTitle">🏅 Medal System</h3>
+
+        <div class="toggleRow economyToggle">
+
+            <div>
+                <strong>Enable Medals</strong>
+                <p class="settingHint">
+                    Allow viewers to earn medals in chat.
+                </p>
+            </div>
+
+            <label class="switch">
+                <input type="checkbox" id="medalsEnabled">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="commandButtons">
+            <button onclick="saveMedals()">
+                Save Medal Settings
+            </button>
+        </div>
+
+    </div>
 
 </div>
-
-<br><br>
-
-<button onclick="saveMedals()">
-Save Medal Settings
-</button>
-
-</div>
-
 
 
 <!-- ========================= -->
@@ -295,7 +365,7 @@ Save Medal Settings
 
     <div class="commandsHero">
         <h2>Timed <span>Messages</span></h2>
-        <p>Automatically send messages in chat every few minutes.</p>
+        <p>Automatically send messages after a set number of chat messages.</p>
     </div>
 
     <!-- PANEL -->
@@ -315,12 +385,16 @@ Save Medal Settings
                 </div>
 
                 <div class="field">
-                    <label>Interval (minutes)</label>
+                    <label>Message Interval</label>
 
                     <input
                     id="timedInterval"
                     type="number"
-                    placeholder="15">
+                    placeholder="50">
+
+                    <small>
+                        Send this message every X chat messages.
+                    </small>
                 </div>
 
                 <div class="commandButtons">
@@ -338,7 +412,7 @@ Save Medal Settings
             <!-- RIGHT -->
             <div class="previewPanel">
 
-                <h3>⏰ Preview</h3>
+                <h3>💬 Preview</h3>
 
                 <div class="previewBubble">
                     Follow the stream for more content!
@@ -349,7 +423,7 @@ Save Medal Settings
 
                     <div class="varTags">
                         <span>Keep messages short</span>
-                        <span>Use every 10-20 mins</span>
+                        <span>Use every 50-100 messages</span>
                         <span>Avoid spam frequency</span>
                     </div>
                 </div>
@@ -367,12 +441,12 @@ Save Medal Settings
             <h3>Your Timed Messages</h3>
         </div>
 
-        <table id="commandsTable">
+        <table id="timedTable">
 
             <thead>
                 <tr>
                     <th>MESSAGE</th>
-                    <th>INTERVAL</th>
+                    <th>MESSAGES</th>
                     <th>ACTIONS</th>
                 </tr>
             </thead>

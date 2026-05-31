@@ -336,12 +336,75 @@ border-radius:6px;
 font-size:14px;
 }
 
-.commandRow{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:12px;
-border-bottom:1px solid #eee;
+/* Timed Messages table */
+#timedTable{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+#timed table{
+    width:100%;
+    table-layout:fixed;
+}
+
+#timedTable th{
+    text-align:left;
+    padding:20px 28px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:rgba(255,255,255,0.55);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+#timedTable td{
+    padding:22px 28px;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    color:white;
+    font-size:15px;
+}
+
+#timedTable th:first-child,
+#timedTable td:first-child{
+    width:70%;
+}
+
+#timedTable th:nth-child(2),
+#timedTable td:nth-child(2){
+    width:15%;
+    text-align:center;
+}
+
+#timedTable th:nth-child(3),
+#timedTable td:nth-child(3){
+    width:15%;
+    text-align:right;
+}
+
+.cmdResponse{
+    width:100%;
+
+    color:rgba(255,255,255,0.85);
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.intervalBadge{
+
+    padding:10px 18px;
+
+    border-radius:14px;
+
+    background:rgba(216,108,255,0.10);
+
+    border:1px solid rgba(216,108,255,0.15);
+
+    color:#f0c4ff;
+
+    font-weight:700;
 }
 
 .cmdName{
@@ -1181,4 +1244,40 @@ transform:translateX(24px);
 .deleteBtn:hover{
     background:rgba(255,80,120,0.18);
     transform:translateY(-1px);
+}
+
+/* ========================= */
+/* ECONOMY PAGE */
+/* ========================= */
+
+.panelTitle{
+    margin:0 0 24px 0;
+    color:white;
+    font-size:24px;
+    font-weight:700;
+}
+
+.economyToggle{
+    width:100%;
+    padding:20px;
+
+    background:rgba(255,255,255,0.03);
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    border-radius:18px;
+}
+
+.settingHint{
+    margin-top:6px;
+    color:rgba(255,255,255,0.55);
+    font-size:13px;
+}
+
+#economy .commandsPanel{
+    margin-bottom:24px;
+}
+
+#economy .commandForm{
+    max-width:700px;
 }

@@ -447,8 +447,44 @@ const res = await fetch(
 const data = await res.json()
 
 if(data.medals_enabled !== undefined){
-document.getElementById("medalsEnabled").checked =
-data.medals_enabled === 1 || data.medals_enabled === true
+    document.getElementById("medalsEnabled").checked =
+    data.medals_enabled === 1 || data.medals_enabled === true;
+}
+
+/* economy inputs */
+if(data.currency_name !== undefined){
+    document.getElementById("currencyName").value =
+    data.currency_name;
+}
+
+if(data.points_per_message !== undefined){
+    document.getElementById("pointsPerMessage").value =
+    data.points_per_message;
+}
+
+if(data.daily_reward !== undefined){
+    document.getElementById("dailyReward").value =
+    data.daily_reward;
+}
+
+/* stat cards */
+const currencyDisplay = document.getElementById("currencyDisplay");
+const ppmDisplay = document.getElementById("ppmDisplay");
+const dailyDisplay = document.getElementById("dailyDisplay");
+
+if(currencyDisplay){
+    currencyDisplay.innerText =
+    data.currency_name || "Coins";
+}
+
+if(ppmDisplay){
+    ppmDisplay.innerText =
+    data.points_per_message || 0;
+}
+
+if(dailyDisplay){
+    dailyDisplay.innerText =
+    data.daily_reward || 0;
 }
 
 }catch(err){
@@ -554,7 +590,7 @@ row.innerHTML = `
             color:#f0b6ff;
             font-weight:600;
         ">
-            ${msg.interval_minutes} min
+            ${msg.interval_minutes} msgs
         </span>
     </td>
 
